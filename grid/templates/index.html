@@ -15,8 +15,8 @@ Home - {{block.super}}
 		<div class="photo">
 			<!--  -->
 			<a href="{% url 'article_detail' article_id=article.id %}">
-			<div class="photo-image">
-				<img src="{{article.image.url}}" alt="{{article.name}}" class="grid-img"/>
+			<div class="photo-image" style="background-image: url({{article.image.url}})">
+				<!-- <img src="{{article.image.url}}" alt="{{article.name}}" class="grid-img"/> -->
 			</div>
 			</a>
 		</div>
