@@ -1,0 +1,58 @@
+body {
+	font-family: monospace;
+}
+
+/* Adapted from Photo Grid with Hover by Douglas Glover - http://codepen.io/DouglasGlover/pen/zHBid */
+#container{
+  width:1140px;
+  position:relative;
+  margin:0 auto;
+  top:20px;
+}
+
+
+.photo{
+  position:relative;
+  float:left;
+  height:200px;
+  width:200px;
+  background:#fff;
+  border:1px solid #999;
+  margin:20px;
+}
+
+.photo-image {
+	position:relative;
+	cursor: pointer;
+	top:18px;
+	left:18px;
+	width:160px;
+	height: 160px;
+	border:1px solid #999;  
+	overflow: hidden;
+	transition: all 1s ease;
+}
+
+.grid-img{
+	cursor: pointer;
+	width:160px;
+	opacity: 0.6;
+	display: block;
+	margin: auto;
+	transition: all 1s ease;
+
+}
+
+.photo-image:hover {
+	overflow: visible;
+}
+
+.photo-image:hover img {
+	opacity: 1;
+	position: absolute;
+	z-index: 1001;
+	width: 300px;
+	top: -75px;
+	left: -75px;
+	border: 1px solid #999;
+}

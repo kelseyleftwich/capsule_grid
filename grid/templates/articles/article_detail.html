@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}
+Detail - {{block.super}}
+{% endblock title %}
+
+{% block content %}
+    <p>Name: {{article.name}}</p>
+    <p>Description: {{article.description}}</p>
+    {% if article.image %}
+    <p><img src="{{article.image.url }}"/></p>
+    {% endif %}
+    {% if user == article.user %}
+    <p>
+		<a href="{% url 'edit_article' article_id=article.id %}">Edit</a><br/>
+    </p>
+    {% endif %}
+
+{% endblock content %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}
+Home - {{block.super}}
+{% endblock title %}
+
+{% block content %}
+    <!-- <h2>Home</h2> -->
+
+    <div id="overlay"></div>
+    	<div id="container">
+    		
+	{% for article in articles %}
+	{% if not article.image %}
+	{% else %}
+		<div class="photo">
+			<!--  -->
+			<div class="photo-image">
+			<a href="{% url 'article_detail' article_id=article.id %}">
+				<img src="{{article.image.url}}" alt="{{article.name}}" class="grid-img"/>
+			</a>
+			</div>
+		</div>
+	{%endif%}
+	{% endfor %}
+    	</div>
+    
+{% endblock content %}

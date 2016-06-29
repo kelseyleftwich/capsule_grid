@@ -1,0 +1,24 @@
+{% load staticfiles %}
+<html>
+<head>
+	<title>{% block title %}Capsule Grid{% endblock title %}</title>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+<body>
+<div class="container">
+	<h1>Grid</h1>
+	<ul>
+		<li><a href="{% url 'home' %}">View Grid</a></li>
+		<li><a href="{% url 'browse' %}">Articles</a></li>
+		<li><a href="{% url 'new_article' %}">Add</a></li>
+
+	</ul>
+	{% block content %}
+	{% endblock content %}
+
+	{% block footer %}	
+	{% endblock footer %}
+</div>
+</body>
+</html>
