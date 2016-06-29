@@ -14,11 +14,11 @@ Home - {{block.super}}
 	{% else %}
 		<div class="photo">
 			<!--  -->
-			<div class="photo-image">
 			<a href="{% url 'article_detail' article_id=article.id %}">
+			<div class="photo-image">
 				<img src="{{article.image.url}}" alt="{{article.name}}" class="grid-img"/>
-			</a>
 			</div>
+			</a>
 		</div>
 	{%endif%}
 	{% endfor %}
