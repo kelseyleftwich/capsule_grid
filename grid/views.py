@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 
 
 def index(request):
-	articles = Article.objects.all()
+	articles = Article.objects.all().order_by('?')
 	return render(
 		request,
 		'index.html',

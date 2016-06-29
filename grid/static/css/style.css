@@ -2,7 +2,7 @@ body {
 	font-family: monospace;
 }
 
-/* Adapted from Photo Grid with Hover by Douglas Glover - http://codepen.io/DouglasGlover/pen/zHBid */
+/* Adapted from "Photo Grid with Hover" by Douglas Glover - http://codepen.io/DouglasGlover/pen/zHBid */
 #container{
   width:1140px;
   position:relative;
@@ -35,7 +35,7 @@ body {
 
 .grid-img{
 	cursor: pointer;
-	width:160px;
+	height:160px;
 	opacity: 0.6;
 	display: block;
 	margin: auto;
@@ -51,7 +51,7 @@ body {
 	opacity: 1;
 	position: absolute;
 	z-index: 1001;
-	width: 300px;
+	height: 300px;
 	top: -75px;
 	left: -75px;
 	border: 1px solid #999;

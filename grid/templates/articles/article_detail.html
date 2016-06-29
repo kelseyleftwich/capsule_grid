@@ -7,7 +7,7 @@ Detail - {{block.super}}
     <p>Name: {{article.name}}</p>
     <p>Description: {{article.description}}</p>
     {% if article.image %}
-    <p><img src="{{article.image.url }}"/></p>
+    <p><img src="{{article.image.url }}" width="500px"/></p>
     {% endif %}
     {% if user == article.user %}
     <p>
