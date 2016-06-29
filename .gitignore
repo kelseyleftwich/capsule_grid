@@ -90,3 +90,6 @@ ENV/
 
 # media
 media/
+
+# db
+db.sqlite3
