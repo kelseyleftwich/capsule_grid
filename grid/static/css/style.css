@@ -42,10 +42,10 @@ body {
 	opacity: 1;
 	position: absolute;
 	z-index: 1001;
-	height: 600px;
-	width: 600px;
-	top: -75px;
-	left: -75px;
+	height: 500px;
+	width: 500px;
+	top: -125px;
+	left: -125px;
 	border: 1px solid #999;
 	background-size: contain;
 	background-repeat: no-repeat;

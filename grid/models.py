@@ -20,10 +20,12 @@ class Article(models.Model):
 
 	def save(self, *args, **kwargs):
 		pil_image_obj = Image.open(self.image)
-		new_image = resizeimage.resize_width(pil_image_obj, 800)
-		new_image_io = BytesIO()
-		new_image.save(new_image_io, format='JPEG')
-		temp_name = self.image.name
-		self.image.delete(save=False)
-		self.image.save(temp_name, content=ContentFile(new_image_io.getvalue()), save=False)
+		img_size = pil_image_obj.size
+		if float(img_size[0]) >= 800:
+			new_image = resizeimage.resize_width(pil_image_obj, 800)
+			new_image_io = BytesIO()
+			new_image.save(new_image_io, format='JPEG')
+			temp_name = self.image.name
+			self.image.delete(save=False)
+			self.image.save(temp_name, content=ContentFile(new_image_io.getvalue()), save=False)
 		super(Article, self).save(*args, **kwargs)
