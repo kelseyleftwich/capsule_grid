@@ -5,18 +5,22 @@ from django.http import Http404
 from django.contrib.auth.decorators import login_required
 import random
 
-
+@login_required
 def index(request, article_type=None):
-	if article_type:
-		articles = Article.objects.filter(article_type=article_type.upper(), user=request.user)
+	if request.user.is_authenticated():
+		if article_type:
+			articles = Article.objects.filter(article_type=article_type.upper(), user=request.user)
+		else:
+			articles = Article.objects.filter(user=request.user).order_by('article_type')
+		return render(
+			request,
+			'index.html',
+			{'articles': articles,}
+			)
 	else:
-		articles = Article.objects.filter(user=request.user).order_by('article_type')
-	return render(
-		request,
-		'index.html',
-		{'articles': articles,}
-		)
+		return redirect('registration_register')
 
+@login_required
 def plan(request):
 	if Plan.objects.filter(user=request.user).count() > 0:
 		plan = Plan.objects.get(user=request.user)
@@ -78,6 +82,7 @@ def new_plan(request):
 			form = PlanForm()
 		return render(request, 'plans/new.html', {'form': form,})
 
+@login_required
 def outfit(request):
 	outer = Article.objects.filter(article_type='O', user=request.user).order_by('?').first()
 	detail = Article.objects.filter(article_type='A', user=request.user).order_by('?').first()
@@ -133,7 +138,7 @@ def outfit(request):
 				})
 
 
-
+@login_required
 def article_detail(request, article_id):
 	article = Article.objects.get(id=article_id)
 	return render(
@@ -141,7 +146,7 @@ def article_detail(request, article_id):
 		'articles/article_detail.html',
 		{'article': article,}
 		)
-
+@login_required
 def browse_by_name(request, initial=None):
 	if initial:
 		#articles = Article.objects.filter(name__istartswith=initial, user=request.user).order_by('name')
