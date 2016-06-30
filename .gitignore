@@ -89,7 +89,7 @@ ENV/
 .ropeproject
 
 # media
-media/
+# media/
 
 # db
-db.sqlite3
+# db.sqlite3
