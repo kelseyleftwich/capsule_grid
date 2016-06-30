@@ -23,6 +23,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
 	url(r'^$', views.index, name='home'),
+	url(r'^browse/type/(?P<article_type>[-\w]+)/$', views.index, name='article_type'),
 	# object detail
 	url(r'^articles/(?P<article_id>[0-9]+)/$', views.article_detail, name='article_detail'),
 	# object edit

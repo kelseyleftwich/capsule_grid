@@ -5,6 +5,7 @@ Detail - {{block.super}}
 
 {% block content %}
     <p>Name: {{article.name}}</p>
+    <p>Type: {{article.get_article_type_display}}</p>
     <p>Description: {{article.description}}</p>
     {% if article.image %}
     <p><img src="{{article.image.url }}"/></p>

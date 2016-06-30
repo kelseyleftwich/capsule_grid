@@ -5,8 +5,11 @@ from django.http import Http404
 from django.contrib.auth.decorators import login_required
 
 
-def index(request):
-	articles = Article.objects.all().order_by('?')
+def index(request, article_type=None):
+	if article_type:
+		articles = Article.objects.filter(article_type=article_type.upper())
+	else:
+		articles = Article.objects.all().order_by('article_type')
 	return render(
 		request,
 		'index.html',

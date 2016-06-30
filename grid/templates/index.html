@@ -5,7 +5,14 @@ Home - {{block.super}}
 
 {% block content %}
     <!-- <h2>Home</h2> -->
-
+<p>
+	<a href="{% url 'article_type' article_type='t' %}">Tops</a> - 
+	<a href="{% url 'article_type' article_type='b' %}">Bottoms</a> - 
+	<a href="{% url 'article_type' article_type='d' %}">Dresses</a> - 
+	<a href="{% url 'article_type' article_type='o' %}">Outerwear</a> - 
+	<a href="{% url 'article_type' article_type='a' %}">Details</a> - 
+	<a href="{% url 'home' %}">All</a>
+</p>
     <div id="overlay"></div>
     	<div id="container">
     		
