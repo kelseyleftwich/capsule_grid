@@ -5,40 +5,66 @@ Home - {{block.super}}
 
 {% block content %}
 <p>Random Outfit Generated...</p>
-<div id="container">
+<div id="container" class="outfit">
 	{# top #}
+	{% if top %}	
 	<div class="photo">
 		<a href="{% url 'article_detail' article_id=top.id %}">
 			<div class="photo-image" style="background-image: url({{top.image.url}})">
 			</div>
 		</a>
 	</div>
+	{% endif %}
+
+	{# dress #}
+	{% if dress %}	
+	<div class="photo">
+		<a href="{% url 'article_detail' article_id=dress.id %}">
+			<div class="photo-image" style="background-image: url({{dress.image.url}})">
+			</div>
+		</a>
+	</div>
+	{% endif %}
 
 	{# outer #}
+	{% if outer %}	
 	<div class="photo">
 		<a href="{% url 'article_detail' article_id=outer.id %}">
 			<div class="photo-image" style="background-image: url({{outer.image.url}})">
 			</div>
 		</a>
 	</div>
-
-	<div style="clear: both">&nbsp;</div>
-
-	{# bottom #}
-	<div class="photo">
-		<a href="{% url 'article_detail' article_id=bottom.id %}">
-			<div class="photo-image" style="background-image: url({{bottom.image.url}})">
-			</div>
-		</a>
-	</div>
+	{% endif %}
 
 	{# detail #}
+	{% if detail %}	
 	<div class="photo">
 		<a href="{% url 'article_detail' article_id=detail.id %}">
 			<div class="photo-image" style="background-image: url({{detail.image.url}})">
 			</div>
 		</a>
 	</div>
+	{% endif %}
+
+	{# bottom #}
+	{% if bottom %}	
+	<div class="photo">
+		<a href="{% url 'article_detail' article_id=bottom.id %}">
+			<div class="photo-image" style="background-image: url({{bottom.image.url}})">
+			</div>
+		</a>
+	</div>
+	{% endif %}
+
+	{# shoes #}
+	{% if shoes %}
+	<div class="photo">
+		<a href="{% url 'article_detail' article_id=shoes.id %}">
+			<div class="photo-image" style="background-image: url({{shoes.image.url}})">
+			</div>
+		</a>
+	</div>
+	{% endif %}
 
 </div>
 

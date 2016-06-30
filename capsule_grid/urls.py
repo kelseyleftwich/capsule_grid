@@ -28,11 +28,16 @@ urlpatterns = [
 	url(r'^articles/(?P<article_id>[0-9]+)/$', views.article_detail, name='article_detail'),
 	# object edit
 	url(r'^articles/(?P<article_id>[-\w]+)/edit/$', views.edit_article, name='edit_article'),
+	# object delete
+	url(r'^articles/(?P<article_id>[-\w]+)/delete/$', views.delete_article, name='delete_article'),
 	# object new
 	url(r'^articles/new/$', views.new_article, name='new_article'),
+	# object new
+	url(r'^plan/new/$', views.new_plan, name='new_plan'),
 	# outfit
 	url(r'^outfit/$', views.outfit, name='outfit'),
-
+	# plan
+	url(r'^plan/$', views.plan, name='plan'),
 	# object browse
     url(r'^browse/$', RedirectView.as_view(pattern_name='browse', permanent=True)),
 	url(r'^browse/name/$',

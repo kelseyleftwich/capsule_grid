@@ -4,7 +4,7 @@ body {
 
 /* Adapted from "Photo Grid with Hover" by Douglas Glover - http://codepen.io/DouglasGlover/pen/zHBid */
 #container{
-  width:1140px;
+  width:960px;
   position:relative;
   margin:0 auto;
   top:20px;
@@ -23,6 +23,7 @@ body {
 
 .photo-image {
 	background-size: cover;
+	background-position: center;
 	position:relative;
 	cursor: pointer;
 	top:18px;
@@ -51,4 +52,8 @@ body {
 	background-repeat: no-repeat;
 	background-position: center; 
 	background-color: #f6f6f6;
+}
+
+div#container.outfit {
+	width: 720;
 }

@@ -12,7 +12,8 @@ Detail - {{block.super}}
     {% endif %}
     {% if user == article.user %}
     <p>
-		<a href="{% url 'edit_article' article_id=article.id %}">Edit</a><br/>
+        <a href="{% url 'edit_article' article_id=article.id %}">Edit</a><br/>
+		<a href="{% url 'delete_article' article_id=article.id %}">Delete</a><br/>
     </p>
     {% endif %}
 

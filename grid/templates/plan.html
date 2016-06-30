@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% block title %}
+Home - {{block.super}}
+{% endblock title %}
+
+{% block content %}
+<p>Plan</p>
+
+
+
+
+
+
+{% if plan %}
+<table class="table">
+	<tr>
+		<td>Type</td>
+		<td>Plan</td>
+		<td>Actual</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Tops</td>
+		<td>{{ plan.top_count }}</td>
+		<td>{{tops_actual}}</td>
+		<td>
+			{% include 'includes/plan_compare.html' with plan_var=plan.top_count actual_var=tops_actual%}
+		</td>
+	</tr>
+	<tr>
+		<td>Bottoms</td>
+		<td>
+			{{plan.bottom_count}}
+		</td>
+		<td>{{bottoms_actual}}</td>
+		<td>
+			{% include 'includes/plan_compare.html' with plan_var=plan.bottom_count actual_var=bottoms_actual%}
+		</td>
+	</tr>
+	<tr>
+		<td>Dresses</td>
+		<td>
+			{{plan.dress_count}}
+		</td>
+		<td>{{dresses_actual}}</td>
+		<td>
+			{% include 'includes/plan_compare.html' with plan_var=plan.dress_count actual_var=dresses_actual%}
+		</td>
+	</tr>
+	<tr>
+		<td>Outerwear</td>
+		<td>
+			{{plan.outer_count}}
+		</td>
+		<td>{{outer_actual}}</td>
+		<td>
+			{% include 'includes/plan_compare.html' with plan_var=plan.outer_count actual_var=outer_actual%}
+		</td>
+	</tr>
+	<tr>
+		<td>Shoes</td>
+		<td>
+			{{plan.shoe_count}}
+		</td>
+		<td>{{shoes_actual}}</td>
+		<td>
+			{% include 'includes/plan_compare.html' with plan_var=plan.shoe_count actual_var=shoes_actual%}
+		</td>
+	</tr>
+	<tr>
+		<td>Details</td>
+		<td>
+			{{plan.details_count}}
+		</td>
+		<td>{{details_actual}}</td>
+		<td>
+			{% include 'includes/plan_compare.html' with plan_var=plan.details_count actual_var=details_actual%}
+		</td>
+	</tr>
+
+	
+	
+	
+	
+	
+</table>
+
+{% else %}
+No plan set. <a href="{% url 'new_plan' %}">Create Plan</a>
+{% endif %}
+
+{% endblock content %}

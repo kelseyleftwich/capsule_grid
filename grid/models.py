@@ -5,6 +5,7 @@ from PIL import Image
 from resizeimage import resizeimage
 from io import BytesIO
 from django.core.files.base import ContentFile
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 def get_image_path(instance, filename):
     return os.path.join('img', str(instance.id), filename)
@@ -16,6 +17,7 @@ class Article(models.Model):
 		('D', 'Dress'),
 		('A', 'Details'),
 		('O', 'Outer'),
+		('S', 'Shoes'),
 		)
 
 	name = models.CharField(max_length=255)
@@ -38,3 +40,13 @@ class Article(models.Model):
 			self.image.delete(save=False)
 			self.image.save(temp_name, content=ContentFile(new_image_io.getvalue()), save=False)
 		super(Article, self).save(*args, **kwargs)
+
+class Plan(models.Model):
+	user = models.OneToOneField(User, on_delete=models.CASCADE, null=False)
+	
+	top_count = models.IntegerField(blank=False, null=False, default=1, validators=[MinValueValidator(0)])
+	bottom_count = models.IntegerField(blank=False, null=False, default=1, validators=[MinValueValidator(0)])
+	dress_count = models.IntegerField(blank=False, null=False, default=1, validators=[MinValueValidator(0)])
+	shoe_count = models.IntegerField(blank=False, null=False, default=1, validators=[MinValueValidator(0)])
+	details_count = models.IntegerField(blank=False, null=False, default=1, validators=[MinValueValidator(0)])
+	outer_count = models.IntegerField(blank=False, null=False, default=1, validators=[MinValueValidator(0)])
