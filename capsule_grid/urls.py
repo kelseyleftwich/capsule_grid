@@ -13,7 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 from grid import views
 from capsule_grid import settings
@@ -44,6 +44,9 @@ urlpatterns = [
 	        views.browse_by_name, name='browse'),
 	url(r'^browse/name/(?P<initial>[-\w]+)/$',
         views.browse_by_name, name='browse_by_name'),
+	#registration
+	url(r'^accounts/', include('registration.backends.simple.urls')),
+	#admin
     url(r'^admin/', admin.site.urls),
 ]
 

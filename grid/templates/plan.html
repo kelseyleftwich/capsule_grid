@@ -77,7 +77,20 @@ Home - {{block.super}}
 			{% include 'includes/plan_compare.html' with plan_var=plan.details_count actual_var=details_actual%}
 		</td>
 	</tr>
-
+	<tr>
+		<td>
+			All
+		</td>
+		<td>
+			{{plan.total}}
+		</td>
+		<td>
+			{{total_actual}}
+		</td>
+		<td>
+			{% include 'includes/plan_compare.html' with plan_var=plan.total actual_var=total_actual%}
+		</td>
+	</tr>
 	
 	
 	

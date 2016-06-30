@@ -50,3 +50,7 @@ class Plan(models.Model):
 	shoe_count = models.IntegerField(blank=False, null=False, default=1, validators=[MinValueValidator(0)])
 	details_count = models.IntegerField(blank=False, null=False, default=1, validators=[MinValueValidator(0)])
 	outer_count = models.IntegerField(blank=False, null=False, default=1, validators=[MinValueValidator(0)])
+
+	def total(self):
+		total = self.top_count + self.bottom_count + self.dress_count + self.shoe_count + self.details_count + self.outer_count
+		return total

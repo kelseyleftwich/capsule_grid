@@ -8,9 +8,9 @@ import random
 
 def index(request, article_type=None):
 	if article_type:
-		articles = Article.objects.filter(article_type=article_type.upper())
+		articles = Article.objects.filter(article_type=article_type.upper(), user=request.user)
 	else:
-		articles = Article.objects.all().order_by('article_type')
+		articles = Article.objects.filter(user=request.user).order_by('article_type')
 	return render(
 		request,
 		'index.html',
@@ -28,6 +28,7 @@ def plan(request):
 	details_actual = Article.objects.filter(article_type='A', user=request.user).count()
 	shoes_actual = Article.objects.filter(article_type='S', user=request.user).count()
 	outer_actual = Article.objects.filter(article_type='O', user=request.user).count()
+	total_actual = Article.objects.filter(user=request.user).count()
 	return render(
 		request,
 		'plan.html',{
@@ -38,6 +39,7 @@ def plan(request):
 			'details_actual': details_actual,
 			'shoes_actual': shoes_actual,
 			'outer_actual': outer_actual,
+			'total_actual': total_actual,
 		}
 		)
 
@@ -77,12 +79,12 @@ def new_plan(request):
 		return render(request, 'plans/new.html', {'form': form,})
 
 def outfit(request):
-	outer = Article.objects.filter(article_type='O').order_by('?').first()
-	detail = Article.objects.filter(article_type='A').order_by('?').first()
-	shoes = Article.objects.filter(article_type='S').order_by('?').first()
+	outer = Article.objects.filter(article_type='O', user=request.user).order_by('?').first()
+	detail = Article.objects.filter(article_type='A', user=request.user).order_by('?').first()
+	shoes = Article.objects.filter(article_type='S', user=request.user).order_by('?').first()
 
-	if Article.objects.filter(article_type='T').count() == 0:
-		dress = Article.objects.filter(article_type='D').order_by('?').first()
+	if Article.objects.filter(article_type='T', user=request.user).count() == 0:
+		dress = Article.objects.filter(article_type='D', user=request.user).order_by('?').first()
 		return render(
 			request,
 			'outfit.html',
@@ -92,8 +94,8 @@ def outfit(request):
 			'detail': detail,
 			'shoes': shoes,
 			})
-	elif Article.objects.filter(article_type='B').count() == 0:
-		dress = Article.objects.filter(article_type='D').order_by('?').first()
+	elif Article.objects.filter(article_type='B', user=request.user).count() == 0:
+		dress = Article.objects.filter(article_type='D', user=request.user).order_by('?').first()
 		return render(
 			request,
 			'outfit.html',
@@ -105,8 +107,8 @@ def outfit(request):
 			})
 	else:
 		flip = random.randint(0, 1)
-		if(flip == 0 and Article.objects.filter(article_type='D').count() != 0):
-			dress = Article.objects.filter(article_type='D').order_by('?').first()
+		if(flip == 0 and Article.objects.filter(article_type='D', user=request.user).count() != 0):
+			dress = Article.objects.filter(article_type='D', user=request.user).order_by('?').first()
 			return render(
 				request,
 				'outfit.html',
@@ -117,8 +119,8 @@ def outfit(request):
 				'shoes': shoes,
 				})
 		else:
-			top = Article.objects.filter(article_type='T').order_by('?').first()
-			bottom = Article.objects.filter(article_type='B').order_by('?').first()
+			top = Article.objects.filter(article_type='T', user=request.user).order_by('?').first()
+			bottom = Article.objects.filter(article_type='B', user=request.user).order_by('?').first()
 			return render(
 				request,
 				'outfit.html',
