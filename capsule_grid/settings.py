@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'resizeimage',
     'registration',
     'django_cleanup',
-    'django_orphaned',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -130,13 +129,6 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-ORPHANED_APPS_MEDIABASE_DIRS = {
-    'grid': {
-        'root': MEDIA_ROOT,  # MEDIABASE_ROOT => default location(s) of your uploaded items e.g. /var/www/mediabase
-        'skip': (),
-        'exclude': ('.gitignore',) # optional iterable of files to preserve
-    }
-}
 
 ACCOUNT_ACTIVATION_DAYS = 7
 
