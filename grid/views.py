@@ -16,6 +16,22 @@ def index(request, article_type=None):
 		{'articles': articles,}
 		)
 
+def outfit(request):
+	top = Article.objects.filter(article_type='T').order_by('?').first()
+	bottom = Article.objects.filter(article_type='B').order_by('?').first()
+	outer = Article.objects.filter(article_type='O').order_by('?').first()
+	detail = Article.objects.filter(article_type='A').order_by('?').first()
+	return render(
+		request,
+		'outfit.html',
+		{
+		'top': top,
+		'bottom': bottom,
+		'outer': outer,
+		'detail': detail,
+		})
+
+
 def article_detail(request, article_id):
 	article = Article.objects.get(id=article_id)
 	return render(

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}
+Home - {{block.super}}
+{% endblock title %}
+
+{% block content %}
+<p>Random Outfit Generated...</p>
+<div id="container">
+	{# top #}
+	<div class="photo">
+		<a href="{% url 'article_detail' article_id=top.id %}">
+			<div class="photo-image" style="background-image: url({{top.image.url}})">
+			</div>
+		</a>
+	</div>
+
+	{# outer #}
+	<div class="photo">
+		<a href="{% url 'article_detail' article_id=outer.id %}">
+			<div class="photo-image" style="background-image: url({{outer.image.url}})">
+			</div>
+		</a>
+	</div>
+
+	<div style="clear: both">&nbsp;</div>
+
+	{# bottom #}
+	<div class="photo">
+		<a href="{% url 'article_detail' article_id=bottom.id %}">
+			<div class="photo-image" style="background-image: url({{bottom.image.url}})">
+			</div>
+		</a>
+	</div>
+
+	{# detail #}
+	<div class="photo">
+		<a href="{% url 'article_detail' article_id=detail.id %}">
+			<div class="photo-image" style="background-image: url({{detail.image.url}})">
+			</div>
+		</a>
+	</div>
+
+</div>
+
+{% endblock content %}
