@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'yj16=pe5$5j&v3tpkw^i)=fmxisqk0*w@ki=x@^ej1m#k#uy#o'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'grid',
     'resizeimage',
     'registration',
+    'django_cleanup',
 ]
 
 MIDDLEWARE_CLASSES = [

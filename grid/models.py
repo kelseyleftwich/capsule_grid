@@ -6,9 +6,10 @@ from resizeimage import resizeimage
 from io import BytesIO
 from django.core.files.base import ContentFile
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.utils.text import slugify
 
 def get_image_path(instance, filename):
-    return os.path.join('img', str(instance.id), filename)
+    return os.path.join('img', slugify(instance.name), filename)
 
 class Article(models.Model):
 	ARTICLE_TYPES = (
@@ -25,6 +26,9 @@ class Article(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
 	image = models.ImageField(upload_to=get_image_path, blank=False, null=False)
 	article_type = models.CharField(max_length=1, choices=ARTICLE_TYPES, null=True)
+
+	def get_id(self):
+		return self.id
 
 	def __str__(self):
 		return self.name
