@@ -146,14 +146,15 @@ def article_detail(request, article_id):
 		'articles/article_detail.html',
 		{'article': article,}
 		)
+
 @login_required
 def browse_by_name(request, initial=None):
 	if initial:
-		#articles = Article.objects.filter(name__istartswith=initial, user=request.user).order_by('name')
-		articles = Article.objects.filter(name__istartswith=initial).order_by('name')
+		articles = Article.objects.filter(name__istartswith=initial, user=request.user).order_by('name')
+		#articles = Article.objects.filter(name__istartswith=initial).order_by('name')
 	else:
-		#articles = Article.objects.filter(user=request.user).order_by('name')
-		articles = Article.objects.all().order_by('name')
+		articles = Article.objects.filter(user=request.user).order_by('name')
+		#articles = Article.objects.all().order_by('name')
 	return render(request, 'search/search.html', {
 		'articles': articles,
 		'initial': initial,
