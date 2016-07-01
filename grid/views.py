@@ -23,11 +23,26 @@ def index(request, article_type=None, weather_type=None):
 		return redirect('registration_register')
 
 @login_required
-def plan(request):
+def plan(request, season_type=None):
 	if Plan.objects.filter(user=request.user).count() > 0:
-		plan = Plan.objects.get(user=request.user)
+		if season_type:
+			plans = Plan.objects.filter(user=request.user, season_type=season_type.upper())
+		else:
+			plans = Plan.objects.filter(user=request.user)
 	else:
-		plan = None
+		plans = None
+	return render(
+		request,
+		'plan.html',{
+			'plans': plans,
+		}
+		)
+
+@login_required
+def plan_detail(request, plan_id):
+	plan = Plan.objects.get(id=plan_id)
+	if plan.user != request.user:
+		raise Http404
 	tops_actual = Article.objects.filter(article_type='T', user=request.user).count()
 	bottoms_actual = Article.objects.filter(article_type='B', user=request.user).count()
 	dresses_actual = Article.objects.filter(article_type='D', user=request.user).count()
@@ -37,7 +52,8 @@ def plan(request):
 	total_actual = Article.objects.filter(user=request.user).count()
 	return render(
 		request,
-		'plan.html',{
+		'plans/plan_detail.html',{
+			'plan_id': plan_id,
 			'plan': plan,
 			'tops_actual': tops_actual,
 			'bottoms_actual': bottoms_actual,
@@ -50,39 +66,37 @@ def plan(request):
 		)
 
 @login_required
-def new_plan(request):
-	# get object if one exists
-	if Plan.objects.filter(user=request.user).count() > 0:
-			plan = Plan.objects.get(user=request.user)
-			# check for valid user
-			if plan.user != request.user:
-				raise Http404
-			# set the form we're using...
-			form_class = PlanForm
-			# if the form has been submitted
-			if request.method == 'POST':
-			# grab the data from the form
-				form = form_class(data=request.POST, instance=plan)
-				if form.is_valid():
-					# save the new data
-					form.save()
-					return redirect('plan')
-			# otherwise create the form
-			else:
-				form = form_class(instance=plan)
-				return render(request, 'plans/new.html', {'form': form,})
-	# object doesn't exist
+def edit_plan(request, plan_id):
+	# get object
+	plan = Plan.objects.get(id=plan_id)
+	# check for valid user
+	if plan.user != request.user:
+		raise Http404
+	form_class = PlanForm
+	if request.method == 'POST':
+	# grab the data from the form
+		form = form_class(data=request.POST, instance=plan)
+		if form.is_valid():
+			# save the new data
+			form.save()
+			return redirect('plan')
+	# otherwise create the form
 	else:
-		if request.method == 'POST':
-			form = PlanForm(data=request.POST)
-			if form.is_valid():
-				plan = form.save(commit=False)
-				plan.user = request.user
-				plan.save()
-				return redirect('plan')
-		else:
-			form = PlanForm()
-		return render(request, 'plans/new.html', {'form': form,})
+		form = form_class(instance=plan)
+		return render(request, 'plans/edit_plan.html', {'plan': plan, 'form': form,})
+
+@login_required
+def new_plan(request):
+	if request.method == 'POST':
+		form = PlanForm(data=request.POST)
+		if form.is_valid():
+			plan = form.save(commit=False)
+			plan.user = request.user
+			plan.save()
+			return redirect('plan')
+	else:
+		form = PlanForm()
+	return render(request, 'plans/new.html', {'form': form,})
 
 @login_required
 def outfit(request):

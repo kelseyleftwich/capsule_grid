@@ -53,8 +53,17 @@ class Article(models.Model):
 		super(Article, self).save(*args, **kwargs)
 
 class Plan(models.Model):
+	SEASON_TYPES = (
+		('W','Winter'),
+		('P','Spring'),
+		('S','Summer'),
+		('A','Autumn'),
+		)
+
+	name = models.CharField(max_length=255)
 	user = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
-	
+	season_type = models.CharField(max_length=1, choices=SEASON_TYPES, null=True)
+
 	top_count = models.IntegerField(blank=False, null=False, default=1, validators=[MinValueValidator(0)])
 	bottom_count = models.IntegerField(blank=False, null=False, default=1, validators=[MinValueValidator(0)])
 	dress_count = models.IntegerField(blank=False, null=False, default=1, validators=[MinValueValidator(0)])

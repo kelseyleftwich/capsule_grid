@@ -11,4 +11,13 @@ class ArticleForm(ModelForm):
 class PlanForm(ModelForm):
 	class Meta:
 		model = Plan
-		fields = ('top_count', 'bottom_count', 'dress_count','shoe_count','details_count','outer_count')
+		fields = (
+			'name',
+			'top_count',
+			'bottom_count',
+			'dress_count',
+			'shoe_count',
+			'details_count',
+			'outer_count',
+			'season_type'
+			)

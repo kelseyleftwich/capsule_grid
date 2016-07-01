@@ -33,12 +33,14 @@ urlpatterns = [
 	url(r'^articles/(?P<article_id>[-\w]+)/delete/$', views.delete_article, name='delete_article'),
 	# object new
 	url(r'^articles/new/$', views.new_article, name='new_article'),
-	# object new
-	url(r'^plan/new/$', views.new_plan, name='new_plan'),
 	# outfit
 	url(r'^outfit/$', views.outfit, name='outfit'),
 	# plan
+	url(r'^plan/new/$', views.new_plan, name='new_plan'),
 	url(r'^plan/$', views.plan, name='plan'),
+	url(r'^plan/season/(?P<season_type>[-\w]+)/$', views.plan, name='plan'),
+	url(r'^plan/(?P<plan_id>[0-9]+)/$', views.plan_detail, name='plan_detail'),
+	url(r'^plan/(?P<plan_id>[0-9]+)/edit/$', views.edit_plan, name='edit_plan'),
 	# object browse
     url(r'^browse/$', RedirectView.as_view(pattern_name='browse', permanent=True)),
 	url(r'^browse/name/$',

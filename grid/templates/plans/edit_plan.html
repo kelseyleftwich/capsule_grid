@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}
+Edit - {{block.super}}
+{% endblock title %}
+
+{% block content %}
+<p>Edit {{plan.name}}</p>
+<form role="form" action="" method="post" enctype="multipart/form-data">
+{% csrf_token %}
+{{ form.as_p }}
+<button type="submit">Submit</button>
+</form>
+{% endblock content %}
