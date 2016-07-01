@@ -125,9 +125,12 @@ def new_outfit(request):
 			outfit.user = request.user
 			outfit.save()
 			return redirect('outfit')
+		return render(request, 'outfits/new.html', {'form': form,})
+
 	else:
+		articles = Article.objects.filter(user=request.user).values('image','id')
 		form = OutfitForm()
-	return render(request, 'outfits/new.html', {'form': form,})
+		return render(request, 'outfits/new.html', {'form': form, 'articles':articles,})
 
 @login_required
 def outfit_random(request):

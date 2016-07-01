@@ -1,61 +1,55 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
+
 {% block title %}
 Add Outfit - {{block.super}}
 {% endblock title %}
 
+{% block header %}
+	<link rel="stylesheet" href="{% static 'css/image-picker.css' %}" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+	<script src="{% static 'js/image-picker.js' %}"></script>
+	{% endblock header %}
+
 {% block content %}
 
-<style>
+        <style type="text/css">
+            .thumbnails li img{
+                width: 300px;
+            }
+        </style>
 
-label {
-	display: inline;
-}
-.thumb{
-    //width:160px;
-    float: left;
-    margin-left: 5px;
-    border: solid 1px #ccc; 
-}
-
-input[type=checkbox]{
-	margin-left: 90px;
-	margin-top: 22px;
-
-}
-
-.thumb img {
-	display: block;
-	margin: 0 auto;
-}
-</style>
 	<p>Outfit</p>
 	<form role="form" action="" method="post">
 		{% csrf_token %}
 		{{ form.as_p }}
 		<button type="submit">Save</button>
 	</form>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 <script>
-/*	$('li').replaceWith(function(){
-    	return $("<div />", {html: $(this).html()});
-	});*/
+	var hashtable = {
+	{% for article in articles%}
+		{% for key, value in article.items %}
+			{% if forloop.first %}
+				'{{value}}':
+			{% elif forloop.last %}
+			 	'{{value}}',
+			{% endif %}
+		{% endfor %}
+	{% endfor %}
+	}
 
-	$('#id_articles li').addClass("photo");
-	$('#id_articles li').prepend('<div class="photo-image">');
 
-	$(function(){
-	/*$('#id_articles').css('width', '100px').css('height', '400px');*/
-    $('#id_articles label').each(function(){
-    	var link = $(this).text();
-    	$(this).siblings().attr('style','background-image: url('+link+')')
+/*	$("#id_articles").addClass("image-picker");
+	$("#id_articles").addClass("show-html");*/
 
-        //$(this).attr('class', 'thumb');
-        console.log();
-        $(this).html($(this).find('input'));
+	$("#id_articles > option").each(function() {
+		id = $(this).val();
+    	$(this).attr('data-img-src','/media/'+hashtable[id]);
+	});
 
-        /*console.log($(this).find('input'));*/
-        /*$(this).prepend("<img src=\"" + link + "\" width=\"100px\">");*/
-    });
-});
+	$("#id_articles").imagepicker();
+
+	console.log("end");
 </script>
+
 {% endblock content %}
