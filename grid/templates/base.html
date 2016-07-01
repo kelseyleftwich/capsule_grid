@@ -12,7 +12,7 @@
 		<li><a href="{% url 'new_article' %}">Add Article</a></li>
 		<li><a href="{% url 'browse' %}">Articles</a></li>
 		<li><a href="{% url 'outfit' %}">Outfit</a></li>
-		<li><a href="{% url 'plan' %}">Plan</a></li>
+		<li><a href="{% url 'plan' %}">Plans</a></li>
 		{% if user.is_authenticated %}
 		<li><a href="{% url 'auth_logout' %}">Logout</a></li>
 		{% else %}

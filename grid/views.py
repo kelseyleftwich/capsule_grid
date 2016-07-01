@@ -108,7 +108,7 @@ def outfit(request):
 		dress = Article.objects.filter(article_type='D', user=request.user).order_by('?').first()
 		return render(
 			request,
-			'outfit.html',
+			'outfits/outfit.html',
 			{
 			'dress': dress,
 			'outer': outer,
@@ -119,7 +119,7 @@ def outfit(request):
 		dress = Article.objects.filter(article_type='D', user=request.user).order_by('?').first()
 		return render(
 			request,
-			'outfit.html',
+			'outfits/outfit.html',
 			{
 			'dress': dress,
 			'outer': outer,
@@ -132,7 +132,7 @@ def outfit(request):
 			dress = Article.objects.filter(article_type='D', user=request.user).order_by('?').first()
 			return render(
 				request,
-				'outfit.html',
+				'outfits/outfit.html',
 				{
 				'dress': dress,
 				'outer': outer,
@@ -144,7 +144,7 @@ def outfit(request):
 			bottom = Article.objects.filter(article_type='B', user=request.user).order_by('?').first()
 			return render(
 				request,
-				'outfit.html',
+				'outfits/outfit.html',
 				{
 				'top': top,
 				'bottom': bottom,

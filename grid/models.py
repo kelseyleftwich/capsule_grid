@@ -74,3 +74,15 @@ class Plan(models.Model):
 	def total(self):
 		total = self.top_count + self.bottom_count + self.dress_count + self.shoe_count + self.details_count + self.outer_count
 		return total
+
+	def __str__(self):
+		return self.name
+
+class Outfit(models.Model):
+	name=models.CharField(max_length=255)
+	user = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
+
+	articles =  models.ManyToManyField(Article)
+
+	def __str__(self):
+		return self.name

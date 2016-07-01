@@ -29,6 +29,9 @@ Home - {{block.super}}
 	</li>
 {% endfor %}
 </ul>
+<p>
+	<a href="{% url 'new_plan' %}">Add Plan</a>
+</p>
 {% else %}
 No plans found. <a href="{% url 'new_plan' %}">Create Plan</a>
 {% endif %}
