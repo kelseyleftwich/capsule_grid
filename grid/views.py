@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from grid.models import Article, Plan
-from grid.forms import ArticleForm, PlanForm
+from grid.models import Article, Plan, Outfit
+from grid.forms import ArticleForm, PlanForm, OutfitForm
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
 import random
@@ -100,6 +100,37 @@ def new_plan(request):
 
 @login_required
 def outfit(request):
+	outfits = Outfit.objects.filter(user=request.user)
+	return render(
+		request,
+		'outfits/outfit.html',
+		{'outfits': outfits,}
+		)
+
+@login_required
+def outfit_detail(request, outfit_id):
+	outfit = Outfit.objects.get(id=outfit_id)
+	return render(
+		request,
+		'outfits/outfit_detail.html',
+		{'outfit': outfit,}
+		)
+
+@login_required
+def new_outfit(request):
+	if request.method == 'POST':
+		form = OutfitForm(data=request.POST)
+		if form.is_valid():
+			outfit = form.save(commit=False)
+			outfit.user = request.user
+			outfit.save()
+			return redirect('outfit')
+	else:
+		form = OutfitForm()
+	return render(request, 'outfits/new.html', {'form': form,})
+
+@login_required
+def outfit_random(request):
 	outer = Article.objects.filter(article_type='O', user=request.user).order_by('?').first()
 	detail = Article.objects.filter(article_type='A', user=request.user).order_by('?').first()
 	shoes = Article.objects.filter(article_type='S', user=request.user).order_by('?').first()
@@ -108,7 +139,7 @@ def outfit(request):
 		dress = Article.objects.filter(article_type='D', user=request.user).order_by('?').first()
 		return render(
 			request,
-			'outfits/outfit.html',
+			'outfits/outfit_random.html',
 			{
 			'dress': dress,
 			'outer': outer,
@@ -119,7 +150,7 @@ def outfit(request):
 		dress = Article.objects.filter(article_type='D', user=request.user).order_by('?').first()
 		return render(
 			request,
-			'outfits/outfit.html',
+			'outfits/outfit_random.html',
 			{
 			'dress': dress,
 			'outer': outer,
@@ -132,7 +163,7 @@ def outfit(request):
 			dress = Article.objects.filter(article_type='D', user=request.user).order_by('?').first()
 			return render(
 				request,
-				'outfits/outfit.html',
+				'outfits/outfit_random.html',
 				{
 				'dress': dress,
 				'outer': outer,
@@ -144,7 +175,7 @@ def outfit(request):
 			bottom = Article.objects.filter(article_type='B', user=request.user).order_by('?').first()
 			return render(
 				request,
-				'outfits/outfit.html',
+				'outfits/outfit_random.html',
 				{
 				'top': top,
 				'bottom': bottom,

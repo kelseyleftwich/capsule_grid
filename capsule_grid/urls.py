@@ -34,7 +34,11 @@ urlpatterns = [
 	# object new
 	url(r'^articles/new/$', views.new_article, name='new_article'),
 	# outfit
-	url(r'^outfit/$', views.outfit, name='outfit'),
+	url(r'^outfits/$', views.outfit, name='outfit'),
+	url(r'^outfits/new/$', views.new_outfit, name='new_outfit'),
+	url(r'^outfits/random$', views.outfit_random, name='outfit_random'),
+	url(r'^outfits/(?P<outfit_id>[0-9]+)/$', views.outfit_detail, name='outfit_detail'),
+
 	# plan
 	url(r'^plan/new/$', views.new_plan, name='new_plan'),
 	url(r'^plan/$', views.plan, name='plan'),

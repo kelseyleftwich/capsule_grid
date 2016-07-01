@@ -1,5 +1,5 @@
 from django.contrib import admin
-from grid.models import Article, Plan
+from grid.models import Article, Plan, Outfit
 
 class ArticleAdmin(admin.ModelAdmin):
 	model = Article
@@ -7,7 +7,13 @@ class ArticleAdmin(admin.ModelAdmin):
 
 class PlanAdmin(admin.ModelAdmin):
 	model = Plan
-	list_display = ('top_count', 'bottom_count', 'dress_count','shoe_count','details_count','outer_count')
+	list_display = ('name', 'user')
+
+class OutfitAdmin(admin.ModelAdmin):
+	model = Outfit
+	list_display = ('__str__', 'user')
 
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Plan, PlanAdmin)
+admin.site.register(Outfit, OutfitAdmin)
+

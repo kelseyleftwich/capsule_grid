@@ -78,11 +78,16 @@ class Plan(models.Model):
 	def __str__(self):
 		return self.name
 
+
 class Outfit(models.Model):
-	name=models.CharField(max_length=255)
+	name=models.CharField(max_length=255, null=True, blank=True)
 	user = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
 
 	articles =  models.ManyToManyField(Article)
 
+
 	def __str__(self):
-		return self.name
+		if not self.name:
+			return "unnamed"
+		else:
+			return self.name

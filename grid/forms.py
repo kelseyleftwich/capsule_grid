@@ -1,6 +1,8 @@
 from django.forms import ModelForm
 from django import forms
-from grid.models import Article, Plan
+from django.utils.safestring import mark_safe
+from grid.models import Article, Plan, Outfit
+from django.forms.widgets import CheckboxSelectMultiple
 
 class ArticleForm(ModelForm):
 	class Meta:
@@ -21,3 +23,16 @@ class PlanForm(ModelForm):
 			'outer_count',
 			'season_type'
 			)
+
+class OutfitForm(ModelForm):
+	class Meta:
+		model = Outfit
+		fields = ('name','articles')
+	def __init__(self, *args, **kwargs):
+		super(OutfitForm, self).__init__(*args, **kwargs)
+		articles = Article.objects.all()
+		items = []
+		for article in articles:
+		    items.append((article.pk, mark_safe('%s' % article.image.url)))
+		self.fields['articles'].widget = CheckboxSelectMultiple()
+		self.fields['articles'].choices = items

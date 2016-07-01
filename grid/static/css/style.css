@@ -11,7 +11,8 @@ body {
   width:960px;
   position:relative;
   margin:0 auto;
-  top:20px;
+  /* top:20px; */
+
 }
 
 
@@ -23,6 +24,13 @@ body {
   background:#fff;
   border:1px solid #999;
   margin:20px;
+}
+
+.outfit_preview .photo{
+	height: 150px;
+  	width: 150px;
+  	margin: 15px;
+
 }
 
 .photo-image {
@@ -39,11 +47,33 @@ body {
 	transition: all 1s ease;
 }
 
+.outfit_preview .photo-image{
+	cursor: auto;
+	height: 120px;
+  	width: 120px;
+  	top:14px;
+	left:14px;
+
+}
+
 .photo-image:hover {
 	overflow: visible;
 }
 
-.photo:hover .photo-image {
+.outfit_preview .photo:hover .photo-image {
+	/* do nothing */
+	background-size: cover;
+	background-position: center;
+	position:relative;
+	height: 120px;
+  	width: 120px;
+  	top:14px;
+	left:14px;
+	border:1px solid #999;  
+	overflow: hidden;
+}
+
+/* .photo:hover .photo-image {
 	opacity: 1;
 	position: absolute;
 	z-index: 1001;
@@ -57,7 +87,14 @@ body {
 	background-position: center; 
 	background-color: #f6f6f6;
 }
-
+ */
 div#container.outfit {
 	width: 720;
+}
+
+.outfit_preview {
+	display:inline-block;
+}
+.outfit_preview:hover {
+	background-color: #f6f6f6;
 }
