@@ -3,7 +3,7 @@ from grid.models import Article, Plan
 
 class ArticleAdmin(admin.ModelAdmin):
 	model = Article
-	list_display = ('name', 'description', 'user')
+	list_display = ('name', 'article_type', 'weather_type', 'user')
 
 class PlanAdmin(admin.ModelAdmin):
 	model = Plan

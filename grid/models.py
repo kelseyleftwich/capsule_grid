@@ -21,11 +21,18 @@ class Article(models.Model):
 		('S', 'Shoes'),
 		)
 
+	WEATHER_TYPES = (
+		('C', 'Cool'),
+		('W', 'Warm'),
+		('B', 'Both'),
+		)
+
 	name = models.CharField(max_length=255)
 	description = models.TextField(blank=True, null=True)
 	user = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
 	image = models.ImageField(upload_to=get_image_path, blank=False, null=False)
 	article_type = models.CharField(max_length=1, choices=ARTICLE_TYPES, null=True)
+	weather_type = models.CharField(max_length=1, choices=WEATHER_TYPES, null=True)
 
 	def get_id(self):
 		return self.id

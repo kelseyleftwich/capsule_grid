@@ -6,12 +6,27 @@ Home - {{block.super}}
 {% block content %}
     <!-- <h2>Home</h2> -->
 <p>
-	<a href="{% url 'article_type' article_type='t' %}">Tops</a> - 
-	<a href="{% url 'article_type' article_type='b' %}">Bottoms</a> - 
-	<a href="{% url 'article_type' article_type='d' %}">Dresses</a> - 
-	<a href="{% url 'article_type' article_type='o' %}">Outerwear</a> - 
-	<a href="{% url 'article_type' article_type='a' %}">Details</a> - 
-	<a href="{% url 'home' %}">All</a>
+<table class="filter_nav">
+	<tr>
+		<td>type</td>
+		<td>weather</td>
+	</tr>
+	<tr>
+		<td>
+			<a href="{% url 'article_type' article_type='t' %}">Tops</a> - 
+			<a href="{% url 'article_type' article_type='b' %}">Bottoms</a> - 
+			<a href="{% url 'article_type' article_type='d' %}">Dresses</a> - 
+			<a href="{% url 'article_type' article_type='o' %}">Outerwear</a> - 
+			<a href="{% url 'article_type' article_type='a' %}">Details</a> - 
+			<a href="{% url 'home' %}">All</a> 
+		</td>
+		<td>
+			<a href="{% url 'weather_type' weather_type='c' %}">Cool</a> -
+			<a href="{% url 'weather_type' weather_type='w' %}">Warm</a> -
+			<a href="{% url 'home' %}">Both</a>
+		</td>
+	</tr>
+</table>
 </p>
     <div id="overlay"></div>
     	<div id="container">

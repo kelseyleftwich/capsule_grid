@@ -6,12 +6,14 @@ from django.contrib.auth.decorators import login_required
 import random
 
 @login_required
-def index(request, article_type=None):
+def index(request, article_type=None, weather_type=None):
 	if request.user.is_authenticated():
 		if article_type:
 			articles = Article.objects.filter(article_type=article_type.upper(), user=request.user)
 		else:
 			articles = Article.objects.filter(user=request.user).order_by('article_type')
+		if weather_type:
+			articles = articles.filter(weather_type=weather_type.upper())
 		return render(
 			request,
 			'index.html',

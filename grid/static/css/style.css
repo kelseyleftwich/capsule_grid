@@ -2,6 +2,10 @@ body {
 	font-family: monospace;
 }
 
+.filter_nav td {
+	padding-right: 2em;
+}
+
 /* Adapted from "Photo Grid with Hover" by Douglas Glover - http://codepen.io/DouglasGlover/pen/zHBid */
 #container{
   width:960px;
