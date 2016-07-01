@@ -53,7 +53,7 @@ class Article(models.Model):
 		super(Article, self).save(*args, **kwargs)
 
 class Plan(models.Model):
-	user = models.OneToOneField(User, on_delete=models.CASCADE, null=False)
+	user = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
 	
 	top_count = models.IntegerField(blank=False, null=False, default=1, validators=[MinValueValidator(0)])
 	bottom_count = models.IntegerField(blank=False, null=False, default=1, validators=[MinValueValidator(0)])
