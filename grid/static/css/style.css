@@ -72,8 +72,7 @@ body {
 	border:1px solid #999;  
 	overflow: hidden;
 }
-
-/* .photo:hover .photo-image {
+.photo:hover .photo-image {
 	opacity: 1;
 	position: absolute;
 	z-index: 1001;
@@ -87,7 +86,6 @@ body {
 	background-position: center; 
 	background-color: #f6f6f6;
 }
- */
 div#container.outfit {
 	width: 720;
 }
