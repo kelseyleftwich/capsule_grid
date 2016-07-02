@@ -5,6 +5,7 @@ Home - {{block.super}}
 
 {% block content %}
 <p>Outfits</p>
+<p><a href="{% url 'new_outfit' %}">New</a></p>
 {% for outfit in outfits %}
 		<a href="#" class="">
 	<div id="container" class="outfit_preview outfit_container">

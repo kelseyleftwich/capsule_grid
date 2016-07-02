@@ -1,6 +1,5 @@
 from django.forms import ModelForm
 from django import forms
-from django.utils.safestring import mark_safe
 from grid.models import Article, Plan, Outfit
 
 class ArticleForm(ModelForm):
@@ -27,3 +26,5 @@ class OutfitForm(ModelForm):
 	class Meta:
 		model = Outfit
 		fields = ('name','articles')
+
+	articles = forms.ModelMultipleChoiceField(queryset=Article.objects.all(),widget=forms.CheckboxSelectMultiple)

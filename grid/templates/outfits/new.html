@@ -22,8 +22,20 @@ Add Outfit - {{block.super}}
 	<p>Outfit</p>
 	<form role="form" action="" method="post">
 		{% csrf_token %}
-		{{ form.as_p }}
-		<button type="submit">Save</button>
+		<p>
+			Name: {{ form.name }}
+		</p>
+		<p>Select articles...</p>
+		<div style="clear:both"></div>
+		<!-- {{ form.as_p }} -->
+		{% for article in form.articles %}
+			{{article.tag}}
+		{% endfor %}
+		<div style="clear:both"></div>
+		
+		<p>
+			<button type="submit">Save</button>
+		</p>
 	</form>
 <script>
 	var hashtable = {
@@ -39,15 +51,19 @@ Add Outfit - {{block.super}}
 	}
 
 
-/*	$("#id_articles").addClass("image-picker");
-	$("#id_articles").addClass("show-html");*/
-
-	$("#id_articles > option").each(function() {
+	$(":checkbox").each(function() {
 		id = $(this).val();
-    	$(this).attr('data-img-src','/media/'+hashtable[id]);
+		console.log($(this).attr('id'));
+		$(this).wrap('<div class="photo-image">');
+		$(this).parent().attr('style','background-image:url(\'' + '/media/'+hashtable[id] + '\')');
+		$(this).parent().wrap('<div class="photo">');
+		$(this).parent().wrap('<label for="' + $(this).attr('id') + '">');
 	});
 
-	$("#id_articles").imagepicker();
+		$(':checkbox').click(function() {
+			$(this).parent().toggleClass("photo-selected");
+		});
+	
 
 	console.log("end");
 </script>

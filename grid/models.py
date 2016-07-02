@@ -85,7 +85,6 @@ class Outfit(models.Model):
 
 	articles =  models.ManyToManyField(Article)
 
-
 	def __str__(self):
 		if not self.name:
 			return "unnamed"

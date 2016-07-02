@@ -98,3 +98,11 @@ div#container.outfit {
 .outfit_preview:hover {
 	background-color: #f6f6f6;
 }
+
+.photo input[type='checkbox'] {
+	display: none;
+}
+
+.photo-selected {
+	opacity: 0.5;
+}
