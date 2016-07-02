@@ -65,7 +65,45 @@ Home - {{block.super}}
 		</a>
 	</div>
 	{% endif %}
+	<div style="clear: both"></div>
+		<form action="{% url 'outfit_random_save' %}" method="post">
+		{% csrf_token %}
+			{# top #}
+			{% if top %}
+			<input type="text" value="{{top.id}}" name="top_id" hidden/>
+			{% endif %}
+		
+			{# bottom #}
+			{% if bottom %}
+			<input type="text" value="{{bottom.id}}" name="bottom_id" hidden/>
+			{% endif %}
+
+			{# dress #}
+			{% if dress %}
+			<input type="text" value="{{dress.id}}" name="dress_id" hidden/>
+			{% endif %}
+		
+			{# outer #}
+			{% if outer %}
+			<input type="text" value="{{outer.id}}" name="outer_id" hidden/>
+			{% endif %}
+		
+			{# detail #}
+			{% if detail %}	
+			<input type="text" value="{{detail.id}}" name="detail_id" hidden/>
+			{% endif %}
+
+			{# shoes #}
+			{% if shoes %}	
+			<input type="text" value="{{shoes.id}}" name="shoes_id" hidden/>
+			{% endif %}
+			<p>
+				Name: <input type="text" name="outfit_name"/>
+				<button type="submit" class="btn">Save</button>
+			</p>
+		</form>
 
 </div>
+
 
 {% endblock content %}

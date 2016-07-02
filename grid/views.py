@@ -138,6 +138,34 @@ def new_outfit(request):
 		return render(request, 'outfits/new.html', {'form': form, 'articles':articles})
 
 @login_required
+def outfit_random_save(request):
+	if request.method=='POST':
+		outfit = Outfit()
+		outfit.name = request.POST['outfit_name']
+		outfit.user = request.user
+		outfit.save()
+		if 'top_id' in request.POST:
+			top = Article.objects.get(id=request.POST['top_id'])
+			outfit.articles.add(top)
+		if 'bottom_id' in request.POST:
+			bottom = Article.objects.get(id=request.POST['bottom_id'])
+			outfit.articles.add(bottom)
+		if 'outer_id' in request.POST:
+			outer = Article.objects.get(id=request.POST['outer_id'])
+			outfit.articles.add(outer)
+		if 'detail_id' in request.POST:
+			detail = Article.objects.get(id=request.POST['detail_id'])
+			outfit.articles.add(detail)
+		if 'shoes_id' in request.POST:
+			shoes = Article.objects.get(id=request.POST['shoes_id'])
+			outfit.articles.add(shoes)
+		if 'dress_id' in request.POST:
+			dress = Article.objects.get(id=request.POST['dress_id'])
+			outfit.articles.add(dress)
+		outfit.save()
+	return redirect('outfit')
+
+@login_required
 def edit_outfit(request, outfit_id):
 	# get object
 	outfit = Outfit.objects.get(id=outfit_id)

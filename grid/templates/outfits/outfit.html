@@ -5,7 +5,8 @@ Home - {{block.super}}
 
 {% block content %}
 <p>Outfits</p>
-<p><a href="{% url 'new_outfit' %}">New</a></p>
+<p><a href="{% url 'new_outfit' %}">New</a> | 
+<a href="{% url 'outfit_random' %}">Random</a></p>
 <hr>
 {% for outfit in outfits %}
 	<a href="{% url 'outfit_detail' outfit_id=outfit.id %}" class="">
