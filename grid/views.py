@@ -85,6 +85,7 @@ def edit_plan(request, plan_id):
 		form = form_class(instance=plan)
 		return render(request, 'plans/edit_plan.html', {'plan': plan, 'form': form,})
 
+
 @login_required
 def new_plan(request):
 	if request.method == 'POST':
@@ -135,6 +136,24 @@ def new_outfit(request):
 		articles = Article.objects.filter(user=request.user).values('image','id')
 		form = OutfitForm()
 		return render(request, 'outfits/new.html', {'form': form, 'articles':articles})
+
+@login_required
+def edit_outfit(request, outfit_id):
+	# get object
+	outfit = Outfit.objects.get(id=outfit_id)
+	# check user
+	if outfit.user != request.user:
+		raise Http404
+	form_class = OutfitForm
+	if request.method == 'POST':
+		form = form_class(data=request.POST, instance=outfit)
+		if form.is_valid():
+			form.save()
+			return redirect('outfit')
+	else:
+		articles = Article.objects.filter(user=request.user).values('image','id')
+		form = form_class(instance=outfit)
+		return render(request, 'outfits/edit_outfit.html', {'outfit': outfit, 'form': form,'articles':articles})
 
 @login_required
 def outfit_random(request):
@@ -264,3 +283,19 @@ def delete_article(request, article_id):
 	# otherwise create the form
 	else:
 		return render(request, 'articles/delete_article.html', {'article': article,})
+
+@login_required
+def delete_outfit(request, outfit_id):
+	# grab the object
+	outfit = Outfit.objects.get(id=outfit_id)
+	# check for valid user
+	if outfit.user != request.user:
+		raise Http404
+	# if the form has been submitted
+	if request.method == 'POST':
+		# grab the data from the form
+		outfit.delete()
+		return render(request, 'outfits/delete_outfit.html', {'outfit': outfit, 'message': "success"})
+	# otherwise create the form
+	else:
+		return render(request, 'outfits/delete_outfit.html', {'outfit': outfit,})

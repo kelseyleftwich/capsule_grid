@@ -105,4 +105,5 @@ div#container.outfit {
 
 .photo-selected {
 	opacity: 0.5;
+	box-shadow: 2px 2px 2px #888;
 }

@@ -6,30 +6,27 @@ Home - {{block.super}}
 {% block content %}
 <p>Outfits</p>
 <p><a href="{% url 'new_outfit' %}">New</a></p>
+<hr>
 {% for outfit in outfits %}
-		<a href="#" class="">
-	<div id="container" class="outfit_preview outfit_container">
-		<p>
-			{% if outfit.name|length == 0 %}
-				<i>unnamed</i>	    
-					
-			{% else %}
-				{{outfit.name}}
-			{% endif %}
-		</p>
-		
-		{% for article in outfit.articles.all %}
+	<a href="{% url 'outfit_detail' outfit_id=outfit.id %}" class="">
+		<div id="container" class="outfit_preview outfit_container">
+			<p>
+				{% if outfit.name|length == 0 %}
+					<i>unnamed</i>	    
+						
+				{% else %}
+					{{outfit.name}}
+				{% endif %}
+			</p>
 			
-		<div class="photo">
-			<!--  -->
-			<!-- <a href="{% url 'article_detail' article_id=article.id %}"> -->
-			<div class="photo-image" style="background-image: url({{article.image.url}})">
-				<!-- <img src="{{article.image.url}}" alt="{{article.name}}" class="grid-img"/> -->
+			{% for article in outfit.articles.all %}
+				
+			<div class="photo">
+				<div class="photo-image" style="background-image: url({{article.image.url}})">
+				</div>
 			</div>
-			<!-- </a> -->
+			{% endfor %}
 		</div>
-		{% endfor %}
-	</div>
 	</a>
 	<!-- <div style="clear: both"></div> -->
 	<hr>

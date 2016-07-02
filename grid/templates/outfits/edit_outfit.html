@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
-{% load staticfiles %}
-
 {% block title %}
-Add Outfit - {{block.super}}
+Edit - {{block.super}}
 {% endblock title %}
 
 {% block header %}
@@ -10,14 +8,7 @@ Add Outfit - {{block.super}}
 	{% endblock header %}
 
 {% block content %}
-
-        <style type="text/css">
-            .thumbnails li img{
-                width: 300px;
-            }
-        </style>
-
-	<p>Outfit</p>
+	<p>Edit {{outfit.name}}</p>
 	<form role="form" action="" method="post">
 		{% csrf_token %}
 		<p>Name: {{ form.name }}</p>
@@ -31,9 +22,10 @@ Add Outfit - {{block.super}}
 		
 		<div style="clear:both"></div>
 
-		<p><button type="submit">Save</button></p>
+		<p><button type="submit" class="btn">Save</button></p>
 	</form>
-<script>
+
+	<script>
 	var hashtable = {
 	{% for article in articles%}
 		{% for key, value in article.items %}
@@ -49,11 +41,15 @@ Add Outfit - {{block.super}}
 
 	$(":checkbox").each(function() {
 		id = $(this).val();
-		console.log($(this).attr('id'));
 		$(this).wrap('<div class="photo-image">');
 		$(this).parent().attr('style','background-image:url(\'' + '/media/'+hashtable[id] + '\')');
 		$(this).parent().wrap('<div class="photo">');
 		$(this).parent().wrap('<label for="' + $(this).attr('id') + '">');
+
+		if($(this).is(':checked')){
+			$(this).parent().toggleClass("photo-selected");
+			console.log("checked");
+		}
 	});
 
 		$(':checkbox').click(function() {
@@ -61,7 +57,5 @@ Add Outfit - {{block.super}}
 		});
 	
 
-	console.log("end");
 </script>
-
 {% endblock content %}

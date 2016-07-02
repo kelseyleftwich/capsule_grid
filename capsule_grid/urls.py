@@ -38,6 +38,8 @@ urlpatterns = [
 	url(r'^outfits/new/$', views.new_outfit, name='new_outfit'),
 	url(r'^outfits/random$', views.outfit_random, name='outfit_random'),
 	url(r'^outfits/(?P<outfit_id>[0-9]+)/$', views.outfit_detail, name='outfit_detail'),
+	url(r'^outfits/(?P<outfit_id>[0-9]+)/edit/$', views.edit_outfit, name='edit_outfit'),
+	url(r'^outfits/(?P<outfit_id>[-\w]+)/delete/$', views.delete_outfit, name='delete_outfit'),
 
 	# plan
 	url(r'^plan/new/$', views.new_plan, name='new_plan'),
