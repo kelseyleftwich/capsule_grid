@@ -8,9 +8,16 @@ Detail - {{block.super}}
     <p>Type: {{article.get_article_type_display}}</p>
     <p>Cool or Warm Weather: {{article.get_weather_type_display}}</p>
     <p>Description: {{article.description}}</p>
-    {% if article.image %}
-    <p><img src="{{article.image.url }}"/></p>
+    {% if article.user.profile.profile_type == 'P'%}
+        {% if article.image %}
+            <p><img src="{{article.image.url }}"/></p>
+        {% endif %}
+    {% else %}
+        {% if article.image_external %}
+            <p><img src="{{article.image_external}}" width="600px"/></p>    
+        {% endif %}
     {% endif %}
+    
     {% if user == article.user %}
     <p>
         <a href="{% url 'edit_article' article_id=article.id %}">Edit</a><br/>

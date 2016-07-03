@@ -7,12 +7,18 @@ Detail - {{block.super}}
 <p>Name: {%if outfit.name|length == 0 %}<i>unnamed</i>{% else %}{{outfit.name}}{% endif %}</p>
 {% for article in outfit.articles.all %}
 <div class="photo">
-	<!--  -->
-	<a href="{% url 'article_detail' article_id=article.id %}">
-	<div class="photo-image" style="background-image: url({{article.image.url}})">
-		<!-- <img src="{{article.image.url}}" alt="{{article.name}}" class="grid-img"/> -->
-	</div>
-	</a>
+	
+	{% if article.image and article.image.url %}
+		<a href="{% url 'article_detail' article_id=article.id %}">
+			<div class="photo-image" style="background-image: url({{article.image.url}})">
+			</div>
+		</a>
+	{% elif article.image_external %}
+		<a href="{% url 'article_detail' article_id=article.id %}">
+			<div class="photo-image" style="background-image: url({{article.image_external}})">
+			</div>
+		</a>
+	{% endif %}
 </div>
 {% endfor %}
 <div style="clear:both"></div>

@@ -4,10 +4,19 @@ Add Article - {{block.super}}
 {% endblock title %}
 
 {% block content %}
+
 <p>Add Article</p>
 <form role="form" action="" method="post" enctype="multipart/form-data">
 {% csrf_token %}
-{{ form.as_p }}
+<p>Name: {{form.name}}</p>
+<p>Description:<br/>{{form.description}}</p>
+<p>Type: {{form.article_type}}</p>
+<p>Weather: {{form.weather_type}}</p>
+{% if user.profile.profile_type == 'P'%}
+	<p>{{form.image}}</p>
+{% else %}
+	<p>Image URL: {{form.image_external}}</p>
+{% endif %}
 <button type="submit">Submit</button>
 </form>
 {% endblock content %}

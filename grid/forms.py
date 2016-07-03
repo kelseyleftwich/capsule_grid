@@ -5,7 +5,7 @@ from grid.models import Article, Plan, Outfit
 class ArticleForm(ModelForm):
 	class Meta:
 		model = Article
-		fields = ('name', 'description', 'image', 'article_type', 'weather_type')
+		fields = ('name', 'description', 'image', 'article_type', 'weather_type', 'image_external')
 		file = forms.ImageField()
 
 class PlanForm(ModelForm):
@@ -27,4 +27,10 @@ class OutfitForm(ModelForm):
 		model = Outfit
 		fields = ('name','articles')
 
-	articles = forms.ModelMultipleChoiceField(queryset=Article.objects.all(),widget=forms.CheckboxSelectMultiple)
+
+	def __init__(self, user, *args, **kwargs):
+		super(OutfitForm, self).__init__(*args, **kwargs)
+		self.fields['articles'] = forms.ModelMultipleChoiceField(
+			queryset = Article.objects.filter(user=user),
+			widget=forms.CheckboxSelectMultiple
+			)

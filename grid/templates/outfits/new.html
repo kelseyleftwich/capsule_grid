@@ -24,9 +24,10 @@ Add Outfit - {{block.super}}
 		<p>Select articles...</p>
 
 		<div style="clear:both"></div>
-		
+
 		{% for article in form.articles %}
 			{{article.tag}}
+			
 		{% endfor %}
 		
 		<div style="clear:both"></div>
@@ -49,8 +50,12 @@ Add Outfit - {{block.super}}
 		id = $(this).val();
 		console.log($(this).attr('id'));
 		$(this).wrap('<div class="photo-image">');
-		$(this).parent().attr('style','background-image:url(\'' + '/media/'+hashtable[id] + '\')');
-		$(this).parent().wrap('<div class="photo">');
+		{% if user.profile.profile_type == 'P' %}
+			$(this).parent().attr('style','background-image:url(\'' + '/media/'+hashtable[id] + '\')');
+		{% else %}
+			$(this).parent().attr('style','background-image:url(\'' + hashtable[id] + '\')');
+		{% endif %}
+		$(this).parent().wrap('<div class="photo outfit_new">');
 		$(this).parent().wrap('<label for="' + $(this).attr('id') + '">');
 	});
 

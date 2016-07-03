@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from grid.models import Article, Plan, Outfit
+from grid.models import Article, Plan, Outfit, Profile
 from grid.forms import ArticleForm, PlanForm, OutfitForm
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
@@ -120,7 +120,7 @@ def outfit_detail(request, outfit_id):
 @login_required
 def new_outfit(request):
 	if request.method == 'POST':
-		form = OutfitForm(data=request.POST)
+		form = OutfitForm(data=request.POST, user=request.user)
 		if form.is_valid():
 			outfit = form.save(commit=False)
 			outfit.user = request.user
@@ -133,8 +133,13 @@ def new_outfit(request):
 		return render(request, 'outfits/new.html', {'form': form,})
 
 	else:
-		articles = Article.objects.filter(user=request.user).values_list('id','image')
-		form = OutfitForm()
+		profile = Profile.objects.get(user=request.user)
+		print(profile)
+		if profile.profile_type == 'P':
+			articles = Article.objects.filter(user=request.user).values_list('id','image')
+		else:
+			articles = Article.objects.filter(user=request.user).values_list('id','image_external')
+		form = OutfitForm(user=request.user)
 		return render(request, 'outfits/new.html', {'form': form, 'articles':articles})
 
 @login_required
@@ -270,6 +275,8 @@ def new_article(request):
 			article.user = request.user
 			article.save()
 			return redirect('article_detail', article_id = article.id)
+		else:
+			print(form.errors)
 	else:
 		form = ArticleForm()
 	return render(request, 'articles/new.html', {'form': form,})

@@ -32,13 +32,16 @@ Home - {{block.super}}
     	<div id="container">
     		
 	{% for article in articles %}
-	{% if not article.image %}
+	{% if not article.image and not article.image_external %}
 	{% else %}
 		<div class="photo">
 			<!--  -->
 			<a href="{% url 'article_detail' article_id=article.id %}">
-			<div class="photo-image" style="background-image: url({{article.image.url}})">
-				<!-- <img src="{{article.image.url}}" alt="{{article.name}}" class="grid-img"/> -->
+			{% if article.user.profile.profile_type == 'P' %}
+				<div class="photo-image" style="background-image: url({{article.image.url}})">
+			{% else %}
+				<div class="photo-image" style="background-image: url({{article.image_external}})">
+			{% endif %}
 			</div>
 			</a>
 		</div>

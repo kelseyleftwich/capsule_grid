@@ -73,7 +73,7 @@ body {
 	overflow: hidden;
 }
 .photo:hover .photo-image {
-	opacity: 1;
+	/* opacity: 1; */
 	position: absolute;
 	z-index: 1001;
 	height: 500px;
@@ -95,6 +95,15 @@ div#container.outfit {
 }
 .outfit_preview:hover {
 	background-color: #f6f6f6;
+}
+
+.photo.outfit_new:hover .photo-image {
+	/* do nothing */
+	background-size: cover;
+	top:18px;
+	left:18px;
+	width:160px;
+	height: 160px;
 }
 
 .photo input[type='checkbox'] {

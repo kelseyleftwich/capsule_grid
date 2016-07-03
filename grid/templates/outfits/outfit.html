@@ -21,11 +21,18 @@ Home - {{block.super}}
 			</p>
 			
 			{% for article in outfit.articles.all %}
-				
-			<div class="photo">
-				<div class="photo-image" style="background-image: url({{article.image.url}})">
-				</div>
-			</div>
+				{% if article.image and article.image.url %}
+				    
+					<div class="photo">
+						<div class="photo-image" style="background-image: url({{article.image.url}})">
+						</div>
+					</div>
+				{% elif article.image_external%}
+					<div class="photo">
+						<div class="photo-image" style="background-image: url({{article.image_external}})">
+						</div>
+					</div>
+				{% endif %}
 			{% endfor %}
 		</div>
 	</a>
