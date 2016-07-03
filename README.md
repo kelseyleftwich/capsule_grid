@@ -8,3 +8,6 @@
 2. Create outfits out of articles of clothing
   * manually select articles
   * randomly generate outfit
+3. Make a capsule plan
+  * set target amounts for each article type
+  * compare plan amounts to actual amounts
