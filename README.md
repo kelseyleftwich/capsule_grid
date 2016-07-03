@@ -1,7 +1,10 @@
 # Capsule
 
-##Feature
-* Add article of clothing
-* Add outfits consisting of articles of clothing
-* Generate random outfit from articles added
-* Plan a capsule wardrobe
+##How it Works
+1. Add articles of clothing
+- set type (top, bottom, outerwear, dress, details, shoes)
+- set weather (cool, warm, both)
+- upload photo
+2. Create outfits out of articles of clothing
+- manually select articles
+- randomly generate outfit

@@ -90,6 +90,7 @@ ENV/
 
 # media
 media/
+capsule_grid/settings.py
 
 # db
 db.sqlite3
