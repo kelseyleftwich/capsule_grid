@@ -43,6 +43,10 @@ Home - {{block.super}}
 
 			<div class="photo-image" style="background-image: url({{dress.image.url}})">
 			</div>
+
+			{% elif dress.image_external %}
+				<div class="photo-image" style="background-image: url({{dress.image_external}})">
+				</div>
 			{% endif %}
 		</a>
 	</div>
@@ -56,6 +60,10 @@ Home - {{block.super}}
 
 			<div class="photo-image" style="background-image: url({{outer.image.url}})">
 			</div>
+
+			{% elif outer.image_external %}
+<div class="photo-image" style="background-image: url({{outer.image_external}})">
+			</div>
 			{% endif %}
 		</a>
 	</div>
@@ -68,6 +76,9 @@ Home - {{block.super}}
 			{% if detail.image and detail.image.url %}
 
 			<div class="photo-image" style="background-image: url({{detail.image.url}})">
+			</div>
+			{% elif detail.image_external %}
+<div class="photo-image" style="background-image: url({{detail.image_external}})">
 			</div>
 			{% endif %}
 
@@ -83,6 +94,10 @@ Home - {{block.super}}
 
 			<div class="photo-image" style="background-image: url({{bottom.image.url}})">
 			</div>
+			{% elif bottom.image_external %}
+			<div class="photo-image" style="background-image: url({{bottom.image_external}})">
+			</div>
+
 			{% endif %}
 
 		</a>
@@ -97,6 +112,10 @@ Home - {{block.super}}
 
 			<div class="photo-image" style="background-image: url({{shoes.image.url}})">
 			</div>
+			{% elif shoes.image_external %}
+			<div class="photo-image" style="background-image: url({{shoes.image_external}})">
+			</div>
+
 			{% endif %}
 
 		</a>
