@@ -22,7 +22,7 @@ Home - {{block.super}}
 	{% if top %}	
 	<div class="photo">
 		<a href="{% url 'article_detail' article_id=top.id %}">
-			{% if top.image.url %}
+			{% if top.image and top.image.url %}
 			    
 			<div class="photo-image" style="background-image: url({{top.image.url}})">
 			</div>
@@ -36,7 +36,7 @@ Home - {{block.super}}
 	{% if dress %}	
 	<div class="photo">
 		<a href="{% url 'article_detail' article_id=dress.id %}">
-			{% if dress.image.url %}
+			{% if dress.image and dress.image.url %}
 
 			<div class="photo-image" style="background-image: url({{dress.image.url}})">
 			</div>
@@ -49,7 +49,7 @@ Home - {{block.super}}
 	{% if outer %}	
 	<div class="photo">
 		<a href="{% url 'article_detail' article_id=outer.id %}">
-			{% if outer.image.url %}
+			{% if outer.image and outer.image.url %}
 
 			<div class="photo-image" style="background-image: url({{outer.image.url}})">
 			</div>
@@ -62,7 +62,7 @@ Home - {{block.super}}
 	{% if detail %}	
 	<div class="photo">
 		<a href="{% url 'article_detail' article_id=detail.id %}">
-			{% if detail.image.url %}
+			{% if detail.image and detail.image.url %}
 
 			<div class="photo-image" style="background-image: url({{detail.image.url}})">
 			</div>
@@ -76,7 +76,7 @@ Home - {{block.super}}
 	{% if bottom %}	
 	<div class="photo">
 		<a href="{% url 'article_detail' article_id=bottom.id %}">
-			{% if bottom.image.url %}
+			{% if bottom.image and bottom.image.url %}
 
 			<div class="photo-image" style="background-image: url({{bottom.image.url}})">
 			</div>
@@ -90,12 +90,12 @@ Home - {{block.super}}
 	{% if shoes %}
 	<div class="photo">
 		<a href="{% url 'article_detail' article_id=shoes.id %}">
-			{% if shoes.image.url %}
+			{% if shoes.image and shoes.image.url %}
 
 			<div class="photo-image" style="background-image: url({{shoes.image.url}})">
 			</div>
 			{% endif %}
-			
+
 		</a>
 	</div>
 	{% endif %}
