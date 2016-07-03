@@ -43,8 +43,8 @@ class Article(models.Model):
 	def save(self, *args, **kwargs):
 		pil_image_obj = Image.open(self.image)
 		img_size = pil_image_obj.size
-		if float(img_size[0]) > 800:
-			new_image = resizeimage.resize_width(pil_image_obj, 800)
+		if float(img_size[0]) > 500:
+			new_image = resizeimage.resize_width(pil_image_obj, 500)
 			new_image_io = BytesIO()
 			new_image.save(new_image_io, format='JPEG')
 			temp_name = self.image.name

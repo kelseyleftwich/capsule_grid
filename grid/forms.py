@@ -5,7 +5,7 @@ from grid.models import Article, Plan, Outfit
 class ArticleForm(ModelForm):
 	class Meta:
 		model = Article
-		fields = ('name', 'description', 'image', 'article_type')
+		fields = ('name', 'description', 'image', 'article_type', 'weather_type')
 		file = forms.ImageField()
 
 class PlanForm(ModelForm):

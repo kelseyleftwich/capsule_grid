@@ -4,7 +4,9 @@ Home - {{block.super}}
 {% endblock title %}
 
 {% block content %}
-<p>Random Outfit Generated...</p>
+<p>Random Outfit Generated... 
+	<a href="{% url 'outfit_random' %}"><span class="glyphicon glyphicon glyphicon-repeat" aria-hidden="true"></span></a>
+</p>
 <div id="container" class="outfit">
 	{# top #}
 	{% if top %}	

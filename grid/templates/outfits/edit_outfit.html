@@ -28,15 +28,9 @@ Edit - {{block.super}}
 	<script>
 	var hashtable = {
 	{% for article in articles%}
-		{% for key, value in article.items %}
-			{% if forloop.first %}
-				'{{value}}':
-			{% elif forloop.last %}
-			 	'{{value}}',
-			{% endif %}
-		{% endfor %}
+		{{article.0}} : '{{article.1}}',
 	{% endfor %}
-	}
+	} 
 
 
 	$(":checkbox").each(function() {

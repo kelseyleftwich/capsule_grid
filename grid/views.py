@@ -133,7 +133,7 @@ def new_outfit(request):
 		return render(request, 'outfits/new.html', {'form': form,})
 
 	else:
-		articles = Article.objects.filter(user=request.user).values('image','id')
+		articles = Article.objects.filter(user=request.user).values_list('id','image')
 		form = OutfitForm()
 		return render(request, 'outfits/new.html', {'form': form, 'articles':articles})
 
@@ -179,7 +179,7 @@ def edit_outfit(request, outfit_id):
 			form.save()
 			return redirect('outfit')
 	else:
-		articles = Article.objects.filter(user=request.user).values('image','id')
+		articles = Article.objects.filter(user=request.user).values_list('id','image')
 		form = form_class(instance=outfit)
 		return render(request, 'outfits/edit_outfit.html', {'outfit': outfit, 'form': form,'articles':articles})
 
