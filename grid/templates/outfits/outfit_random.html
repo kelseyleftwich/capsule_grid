@@ -26,7 +26,10 @@ Home - {{block.super}}
 			    
 			<div class="photo-image" style="background-image: url({{top.image.url}})">
 			</div>
-			
+
+			{% elif top.image_external %}
+			<div class="photo-image" style="background-image: url({{top.image_external}})">
+			</div>
 			{% endif %}
 		</a>
 	</div>
