@@ -15,7 +15,7 @@ Add Article - {{block.super}}
 {% if user.profile.profile_type == 'P'%}
 	<p>{{form.image}}</p>
 {% else %}
-	<p>Image URL: {{form.image_external}}</p>
+	<p>Image URL: {{form.image_external}} <em>Upgrade for image uploads...</em></p>
 {% endif %}
 <button type="submit">Submit</button>
 </form>

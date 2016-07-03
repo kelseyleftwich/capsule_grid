@@ -195,18 +195,35 @@ def outfit_random(request):
 	shoes = Article.objects.filter(article_type='S', user=request.user).order_by('?').first()
 
 	if Article.objects.filter(article_type='T', user=request.user).count() == 0:
-		dress = Article.objects.filter(article_type='D', user=request.user).order_by('?').first()
-		return render(
-			request,
-			'outfits/outfit_random.html',
-			{
-			'dress': dress,
-			'outer': outer,
-			'detail': detail,
-			'shoes': shoes,
-			})
+		if Article.objects.filter(article_type='D', user=request.user).count() == 0:
+			message = "Not enough articles to generate outfit."
+			return render(
+				request,
+				'outfits/outfit_random.html',
+				{
+				'message': message,
+				})
+		else:
+			dress = Article.objects.filter(article_type='D', user=request.user).order_by('?').first()
+			return render(
+				request,
+				'outfits/outfit_random.html',
+				{
+				'dress': dress,
+				'outer': outer,
+				'detail': detail,
+				'shoes': shoes,
+				})
 	elif Article.objects.filter(article_type='B', user=request.user).count() == 0:
 		dress = Article.objects.filter(article_type='D', user=request.user).order_by('?').first()
+		if dress == None:
+			message = "Not enough articles to generate outfit."
+			return render(
+				request,
+				'outfits/outfit_random.html',
+				{
+				'message': message,
+				})
 		return render(
 			request,
 			'outfits/outfit_random.html',

@@ -7,7 +7,17 @@ Home - {{block.super}}
 <p>Random Outfit Generated... 
 	<a href="{% url 'outfit_random' %}"><span class="glyphicon glyphicon glyphicon-repeat" aria-hidden="true"></span></a>
 </p>
+
+{# error message #}
+{% if message %}
+	<p>
+	    {{message}}<br/>
+	    <a href="{% url 'new_article' %}">Add article.</a>
+	</p>
+{% endif %}
+
 <div id="container" class="outfit">
+
 	{# top #}
 	{% if top %}	
 	<div class="photo">
@@ -68,6 +78,10 @@ Home - {{block.super}}
 	</div>
 	{% endif %}
 	<div style="clear: both"></div>
+
+	{% if not message %}
+	    
+	
 		<form action="{% url 'outfit_random_save' %}" method="post">
 		{% csrf_token %}
 			{# top #}
@@ -104,6 +118,7 @@ Home - {{block.super}}
 				<button type="submit" class="btn">Save</button>
 			</p>
 		</form>
+	{% endif %}
 
 </div>
 
