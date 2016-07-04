@@ -205,7 +205,7 @@ def outfit_random(request, plan_id=None):
 	shoes = articles.filter(article_type='S').order_by('?').first()
 
 	if (articles.filter(article_type='T').count() == 0 or articles.filter(article_type='B').count() == 0) and articles.filter(article_type='D').count() == 0:
-		message = "Not enough articles to generate an outfit."
+		message = "Not enough articles to generate an outfit. Random outfit generator looks for a top and bottom article or dress as the outfit base."
 	else:
 		message = None
 

@@ -21,7 +21,11 @@ Home - {{block.super}}
 {% if message %}
 	<p>
 	    {{message}}<br/>
-	    <a href="{% url 'new_article' %}">Add article.</a>
+	    {% if plan %}
+	        Tops: {{plan.tops_actual}}
+	    	Bottoms: {{plan.bottoms_actual}}
+	    	Dresses: {{plan.dresses_actual}}
+	    {% endif %}
 	</p>
 {% endif %}
 
