@@ -23,6 +23,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
 	url(r'^$', views.index, name='home'),
+	url(r'^about/$', views.about, name='about'),
 	url(r'^browse/type/(?P<article_type>[-\w]+)/$', views.index, name='article_type'),
 	url(r'^browse/weather/(?P<weather_type>[-\w]+)/$', views.index, name='weather_type'),
 	# object detail
@@ -49,6 +50,7 @@ urlpatterns = [
 	url(r'^plan/season/(?P<season_type>[-\w]+)/$', views.plan, name='plan'),
 	url(r'^plan/(?P<plan_id>[0-9]+)/$', views.plan_detail, name='plan_detail'),
 	url(r'^plan/(?P<plan_id>[0-9]+)/edit/$', views.edit_plan, name='edit_plan'),
+	url(r'^plan/(?P<plan_id>[0-9]+)/delete/$', views.delete_plan, name='delete_plan'),
 	# object browse
     url(r'^browse/$', RedirectView.as_view(pattern_name='browse', permanent=True)),
 	url(r'^browse/name/$',

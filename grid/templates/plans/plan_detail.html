@@ -12,6 +12,9 @@ Home - {{block.super}}
 <p>
 	<a href="{% url 'edit_plan' plan_id=plan.id %}">Edit</a>
 </p>
+<p>
+	<a href="{% url 'delete_plan' plan_id=plan.id %}">Delete</a>
+</p>
 <table class="table">
 	<tr>
 		<td>Type</td>

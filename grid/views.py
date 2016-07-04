@@ -5,6 +5,9 @@ from django.http import Http404
 from django.contrib.auth.decorators import login_required
 import random
 
+def about(request):
+	return render(request, 'about.html',)
+
 @login_required
 def index(request, article_type=None, weather_type=None):
 	if request.user.is_authenticated():
@@ -367,3 +370,19 @@ def delete_outfit(request, outfit_id):
 	# otherwise create the form
 	else:
 		return render(request, 'outfits/delete_outfit.html', {'outfit': outfit,})
+
+@login_required
+def delete_plan(request, plan_id):
+	# grab the object
+	plan = Plan.objects.get(id=plan_id)
+	# check for valid user
+	if plan.user != request.user:
+		raise Http404
+	# if the form has been submitted
+	if request.method == 'POST':
+		# grab the data from the form
+		plan.delete()
+		return render(request, 'plans/delete_plan.html', {'plan': plan, 'message': "success"})
+	# otherwise create the form
+	else:
+		return render(request, 'plans/delete_plan.html', {'plan': plan,})

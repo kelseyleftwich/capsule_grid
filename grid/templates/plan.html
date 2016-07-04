@@ -30,10 +30,10 @@ Home - {{block.super}}
 {% endfor %}
 </ul>
 <p>
-	<a href="{% url 'new_plan' %}">Add Plan</a>
+	<a href="{% url 'new_plan' %}">Create a capsule.</a>
 </p>
 {% else %}
-No plans found. <a href="{% url 'new_plan' %}">Create Plan</a>
+No plans found. <a href="{% url 'new_plan' %}">Create a capsule.</a>
 {% endif %}
 
 {% endblock content %}
