@@ -87,8 +87,13 @@ def new_plan(request):
 			plan.save()
 			return redirect('plan')
 	else:
+		profile = Profile.objects.get(user=request.user)
+		if profile.profile_type == 'P':
+			articles = Article.objects.filter(user=request.user).values_list('id','image')
+		else:
+			articles = Article.objects.filter(user=request.user).values_list('id','image_external')
 		form = PlanForm(user=request.user)
-	return render(request, 'plans/new.html', {'form': form,})
+	return render(request, 'plans/new.html', {'form': form, 'articles': articles,})
 
 @login_required
 def outfit(request):
