@@ -9,6 +9,9 @@ Home - {{block.super}}
 {% if plan %}
 <p>Name: {{plan.name}}</p>
 <p>Season: {{plan.get_season_type_display}}</p>
+<p>
+	<a href="{% url 'edit_plan' plan_id=plan.id %}">Edit</a>
+</p>
 <table class="table">
 	<tr>
 		<td>Type</td>
@@ -19,9 +22,9 @@ Home - {{block.super}}
 	<tr>
 		<td>Tops</td>
 		<td>{{ plan.top_count }}</td>
-		<td>{{tops_actual}}</td>
+		<td>{{ plan.tops_actual }}</td>
 		<td>
-			{% include 'includes/plan_compare.html' with plan_var=plan.top_count actual_var=tops_actual%}
+			{% include 'includes/plan_compare.html' with plan_var=plan.top_count actual_var=plan.tops_actual%}
 		</td>
 	</tr>
 	<tr>
@@ -29,9 +32,9 @@ Home - {{block.super}}
 		<td>
 			{{plan.bottom_count}}
 		</td>
-		<td>{{bottoms_actual}}</td>
+		<td>{{plan.bottoms_actual}}</td>
 		<td>
-			{% include 'includes/plan_compare.html' with plan_var=plan.bottom_count actual_var=bottoms_actual%}
+			{% include 'includes/plan_compare.html' with plan_var=plan.bottom_count actual_var=plan.bottoms_actual%}
 		</td>
 	</tr>
 	<tr>
@@ -39,9 +42,9 @@ Home - {{block.super}}
 		<td>
 			{{plan.dress_count}}
 		</td>
-		<td>{{dresses_actual}}</td>
+		<td>{{plan.dresses_actual}}</td>
 		<td>
-			{% include 'includes/plan_compare.html' with plan_var=plan.dress_count actual_var=dresses_actual%}
+			{% include 'includes/plan_compare.html' with plan_var=plan.dress_count actual_var=plan.dresses_actual%}
 		</td>
 	</tr>
 	<tr>
@@ -49,19 +52,9 @@ Home - {{block.super}}
 		<td>
 			{{plan.outer_count}}
 		</td>
-		<td>{{outer_actual}}</td>
+		<td>{{plan.outer_actual}}</td>
 		<td>
-			{% include 'includes/plan_compare.html' with plan_var=plan.outer_count actual_var=outer_actual%}
-		</td>
-	</tr>
-	<tr>
-		<td>Shoes</td>
-		<td>
-			{{plan.shoe_count}}
-		</td>
-		<td>{{shoes_actual}}</td>
-		<td>
-			{% include 'includes/plan_compare.html' with plan_var=plan.shoe_count actual_var=shoes_actual%}
+			{% include 'includes/plan_compare.html' with plan_var=plan.outer_count actual_var=plan.outer_actual%}
 		</td>
 	</tr>
 	<tr>
@@ -69,9 +62,19 @@ Home - {{block.super}}
 		<td>
 			{{plan.details_count}}
 		</td>
-		<td>{{details_actual}}</td>
+		<td>{{plan.details_actual}}</td>
 		<td>
-			{% include 'includes/plan_compare.html' with plan_var=plan.details_count actual_var=details_actual%}
+			{% include 'includes/plan_compare.html' with plan_var=plan.details_count actual_var=plan.details_actual%}
+		</td>
+	</tr>
+	<tr>
+		<td>Shoes</td>
+		<td>
+			{{plan.shoe_count}}
+		</td>
+		<td>{{plan.shoes_actual}}</td>
+		<td>
+			{% include 'includes/plan_compare.html' with plan_var=plan.shoe_count actual_var=plan.shoes_actual%}
 		</td>
 	</tr>
 	<tr>
@@ -82,22 +85,32 @@ Home - {{block.super}}
 			{{plan.total}}
 		</td>
 		<td>
-			{{total_actual}}
+			{{plan.total_actual}}
 		</td>
 		<td>
 			{% include 'includes/plan_compare.html' with plan_var=plan.total actual_var=total_actual%}
 		</td>
 	</tr>
-	
-	
-	
-	
-	
+
 </table>
 
-<p>
-	<a href="{% url 'edit_plan' plan_id=plan.id %}">Edit</a>
-</p>
+
+{% for article in plan.articles.all %}
+<div class="photo">
+	
+	{% if article.image and article.image.url %}
+		<a href="{% url 'article_detail' article_id=article.id %}">
+			<div class="photo-image" style="background-image: url({{article.image.url}})">
+			</div>
+		</a>
+	{% elif article.image_external %}
+		<a href="{% url 'article_detail' article_id=article.id %}">
+			<div class="photo-image" style="background-image: url({{article.image_external}})">
+			</div>
+		</a>
+	{% endif %}
+</div>
+{% endfor %}
 
 {% else %}
 No plan set. <a href="{% url 'new_plan' %}">Create Plan</a>

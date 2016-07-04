@@ -2,12 +2,67 @@
 {% block title %}
 Edit - {{block.super}}
 {% endblock title %}
+{% block header %}
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+	{% endblock header %}
 
 {% block content %}
 <p>Edit {{plan.name}}</p>
 <form role="form" action="" method="post" enctype="multipart/form-data">
 {% csrf_token %}
-{{ form.as_p }}
+<p>Name: {{ form.name }}</p>
+		<p>Outer{{form.outer_count}}</p>
+		<p>Tops: {{form.top_count}}</p>
+		<p>Bottoms: {{form.bottom_count}}</p>
+		<p>Dress: {{form.dress_count}}</p>
+		<p>Details: {{form.details_count}}</p>
+		<p>Shoes: {{form.shoe_count}}</p>
+		<p>Season type: {{form.season_type}}</p>
+
+		<p>Select articles...</p>
+
+		<div style="clear:both"></div>
+
+		{% for article in form.articles %}
+			{{article.tag}}
+			
+		{% endfor %}
+		
+		<div style="clear:both"></div>
 <button type="submit">Submit</button>
 </form>
+
+<script>
+	var hashtable = {
+	{% for article in articles%}
+		{{article.0}} : '{{article.1}}',
+	{% endfor %}
+	} 
+
+
+	$(":checkbox").each(function() {
+		id = $(this).val();
+		console.log($(this).attr('id'));
+		$(this).wrap('<div class="photo-image">');
+		{% if user.profile.profile_type == 'P' %}
+			$(this).parent().attr('style','background-image:url(\'' + '/media/'+hashtable[id] + '\')');
+		{% else %}
+			$(this).parent().attr('style','background-image:url(\'' + hashtable[id] + '\')');
+		{% endif %}
+		$(this).parent().wrap('<div class="photo outfit_new">');
+		$(this).parent().wrap('<label for="' + $(this).attr('id') + '">');
+
+		if($(this).is(':checked')){
+			$(this).parent().toggleClass("photo-selected");
+			console.log("checked");
+		}
+	});
+
+		$(':checkbox').click(function() {
+			$(this).parent().toggleClass("photo-selected");
+		});
+	
+
+	console.log("end");
+</script>
 {% endblock content %}

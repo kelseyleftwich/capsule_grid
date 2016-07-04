@@ -8,6 +8,9 @@ class ArticleForm(ModelForm):
 		fields = ('name', 'description', 'image', 'article_type', 'weather_type', 'image_external')
 		file = forms.ImageField()
 
+
+CASE_SQL = '(case when article_type="T" then 1 when article_type="B" then 2 when article_type="O" then 3 when article_type="D" then 4 when article_type="A" then 5 when article_type="S" then 6 end)'
+
 class PlanForm(ModelForm):
 	class Meta:
 		model = Plan
@@ -19,8 +22,17 @@ class PlanForm(ModelForm):
 			'shoe_count',
 			'details_count',
 			'outer_count',
-			'season_type'
+			'season_type',
+			'articles',
 			)
+
+	def __init__(self, user, *args, **kwargs):
+		super(PlanForm, self).__init__(*args, **kwargs)
+		self.fields['articles'] = forms.ModelMultipleChoiceField(
+			queryset = Article.objects.filter(user=user).extra(select={'article_order': CASE_SQL}, order_by=['article_order']),
+			widget=forms.CheckboxSelectMultiple
+			)
+
 
 class OutfitForm(ModelForm):
 	class Meta:
@@ -28,9 +40,10 @@ class OutfitForm(ModelForm):
 		fields = ('name','articles')
 
 
+
 	def __init__(self, user, *args, **kwargs):
 		super(OutfitForm, self).__init__(*args, **kwargs)
 		self.fields['articles'] = forms.ModelMultipleChoiceField(
-			queryset = Article.objects.filter(user=user),
+			queryset = Article.objects.filter(user=user).extra(select={'article_order': CASE_SQL}, order_by=['article_order']),
 			widget=forms.CheckboxSelectMultiple
 			)

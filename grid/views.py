@@ -43,25 +43,11 @@ def plan_detail(request, plan_id):
 	plan = Plan.objects.get(id=plan_id)
 	if plan.user != request.user:
 		raise Http404
-	tops_actual = Article.objects.filter(article_type='T', user=request.user).count()
-	bottoms_actual = Article.objects.filter(article_type='B', user=request.user).count()
-	dresses_actual = Article.objects.filter(article_type='D', user=request.user).count()
-	details_actual = Article.objects.filter(article_type='A', user=request.user).count()
-	shoes_actual = Article.objects.filter(article_type='S', user=request.user).count()
-	outer_actual = Article.objects.filter(article_type='O', user=request.user).count()
-	total_actual = Article.objects.filter(user=request.user).count()
 	return render(
 		request,
 		'plans/plan_detail.html',{
 			'plan_id': plan_id,
 			'plan': plan,
-			'tops_actual': tops_actual,
-			'bottoms_actual': bottoms_actual,
-			'dresses_actual': dresses_actual,
-			'details_actual': details_actual,
-			'shoes_actual': shoes_actual,
-			'outer_actual': outer_actual,
-			'total_actual': total_actual,
 		}
 		)
 
@@ -75,28 +61,33 @@ def edit_plan(request, plan_id):
 	form_class = PlanForm
 	if request.method == 'POST':
 	# grab the data from the form
-		form = form_class(data=request.POST, instance=plan)
+		form = form_class(data=request.POST, instance=plan, user=request.user)
 		if form.is_valid():
 			# save the new data
 			form.save()
 			return redirect('plan')
 	# otherwise create the form
 	else:
-		form = form_class(instance=plan)
-		return render(request, 'plans/edit_plan.html', {'plan': plan, 'form': form,})
+		profile = Profile.objects.get(user=request.user)
+		if profile.profile_type == 'P':
+			articles = Article.objects.filter(user=request.user).values_list('id','image')
+		else:
+			articles = Article.objects.filter(user=request.user).values_list('id','image_external')
+		form = form_class(instance=plan, user=request.user)
+		return render(request, 'plans/edit_plan.html', {'plan': plan, 'form': form, 'articles': articles,})
 
 
 @login_required
 def new_plan(request):
 	if request.method == 'POST':
-		form = PlanForm(data=request.POST)
+		form = PlanForm(data=request.POST, user=request.user)
 		if form.is_valid():
 			plan = form.save(commit=False)
 			plan.user = request.user
 			plan.save()
 			return redirect('plan')
 	else:
-		form = PlanForm()
+		form = PlanForm(user=request.user)
 	return render(request, 'plans/new.html', {'form': form,})
 
 @login_required
@@ -134,7 +125,6 @@ def new_outfit(request):
 
 	else:
 		profile = Profile.objects.get(user=request.user)
-		print(profile)
 		if profile.profile_type == 'P':
 			articles = Article.objects.filter(user=request.user).values_list('id','image')
 		else:

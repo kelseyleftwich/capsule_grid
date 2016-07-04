@@ -17,9 +17,9 @@ class Article(models.Model):
 	ARTICLE_TYPES = (
 		('T', 'Top'),
 		('B', 'Bottom'),
+		('O', 'Outer'),
 		('D', 'Dress'),
 		('A', 'Details'),
-		('O', 'Outer'),
 		('S', 'Shoes'),
 		)
 
@@ -76,9 +76,32 @@ class Plan(models.Model):
 	details_count = models.IntegerField(blank=False, null=False, default=1, validators=[MinValueValidator(0)])
 	outer_count = models.IntegerField(blank=False, null=False, default=1, validators=[MinValueValidator(0)])
 
+	articles =  models.ManyToManyField(Article)
+
 	def total(self):
 		total = self.top_count + self.bottom_count + self.dress_count + self.shoe_count + self.details_count + self.outer_count
 		return total
+
+	def total_actual(self):
+		return self.articles.all().count()
+
+	def tops_actual(self):
+		return self.articles.filter(article_type='T').count()
+
+	def bottoms_actual(self):
+		return self.articles.filter(article_type='B').count()
+
+	def outer_actual(self):
+		return self.articles.filter(article_type='O').count()
+
+	def details_actual(self):
+		return self.articles.filter(article_type='A').count()
+
+	def dresses_actual(self):
+		return self.articles.filter(article_type='D').count()
+
+	def shoes_actual(self):
+		return self.articles.filter(article_type='S').count()
 
 	def __str__(self):
 		return self.name
