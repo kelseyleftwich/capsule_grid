@@ -36,7 +36,7 @@ class Article(models.Model):
 	weather_type = models.CharField(max_length=1, choices=WEATHER_TYPES, null=True)
 	
 	image = models.ImageField(upload_to=get_image_path, null=True, blank=True)
-	image_external = models.CharField(max_length=255, null=True)
+	image_external = models.CharField(max_length=255, null=True, blank=True)
 
 	def get_id(self):
 		return self.id

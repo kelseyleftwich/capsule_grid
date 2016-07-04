@@ -293,7 +293,7 @@ def new_article(request):
 			article.save()
 			return redirect('article_detail', article_id = article.id)
 		else:
-			print(form.errors)
+			return render(request, 'articles/new.html', {'form': form, 'errors':form.errors,})
 	else:
 		form = ArticleForm()
 	return render(request, 'articles/new.html', {'form': form,})
