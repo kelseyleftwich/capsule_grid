@@ -184,41 +184,26 @@ def edit_outfit(request, outfit_id):
 		return render(request, 'outfits/edit_outfit.html', {'outfit': outfit, 'form': form,'articles':articles})
 
 @login_required
-def outfit_random(request):
-	outer = Article.objects.filter(article_type='O', user=request.user).order_by('?').first()
-	detail = Article.objects.filter(article_type='A', user=request.user).order_by('?').first()
-	shoes = Article.objects.filter(article_type='S', user=request.user).order_by('?').first()
+def outfit_random(request, plan_id=None):
+	plans = Plan.objects.filter(user=request.user)
 
-	if Article.objects.filter(article_type='T', user=request.user).count() == 0:
-		if Article.objects.filter(article_type='D', user=request.user).count() == 0:
-			message = "Not enough articles to generate outfit."
-			return render(
-				request,
-				'outfits/outfit_random.html',
-				{
-				'message': message,
-				})
-		else:
-			dress = Article.objects.filter(article_type='D', user=request.user).order_by('?').first()
-			return render(
-				request,
-				'outfits/outfit_random.html',
-				{
-				'dress': dress,
-				'outer': outer,
-				'detail': detail,
-				'shoes': shoes,
-				})
-	elif Article.objects.filter(article_type='B', user=request.user).count() == 0:
-		dress = Article.objects.filter(article_type='D', user=request.user).order_by('?').first()
-		if dress == None:
-			message = "Not enough articles to generate outfit."
-			return render(
-				request,
-				'outfits/outfit_random.html',
-				{
-				'message': message,
-				})
+	if plan_id:
+		plan = Plan.objects.get(id=plan_id)
+		if plan.user != request.user:
+			raise Http404
+		articles = plan.articles
+
+	else:
+		articles = Article.objects.filter(user=request.user).order_by('?')
+		plan=None
+
+	outer = articles.filter(article_type='O').order_by('?').first()
+	detail = articles.filter(article_type='A').order_by('?').first()
+	shoes = articles.filter(article_type='S').order_by('?').first()
+
+	# if no tops - pick dress
+	if articles.filter(article_type='T').count() == 0:
+		dress = articles.filter(article_type='D').order_by('?').first()
 		return render(
 			request,
 			'outfits/outfit_random.html',
@@ -227,11 +212,29 @@ def outfit_random(request):
 			'outer': outer,
 			'detail': detail,
 			'shoes': shoes,
+			'plans': plans,
+			'plan':plan,
 			})
+	# if no bottoms - pick dress
+	elif articles.filter(article_type='B').count() == 0:
+		dress = articles.filter(article_type='D').order_by('?').first()
+		return render(
+			request,
+			'outfits/outfit_random.html',
+			{
+			'dress': dress,
+			'outer': outer,
+			'detail': detail,
+			'shoes': shoes,
+			'plans':plans,
+			'plan':plan,
+
+			})
+	# randomly pick dress or top + bottom combo
 	else:
 		flip = random.randint(0, 1)
-		if(flip == 0 and Article.objects.filter(article_type='D', user=request.user).count() != 0):
-			dress = Article.objects.filter(article_type='D', user=request.user).order_by('?').first()
+		if(flip == 0 and articles.filter(article_type='D').count() != 0):
+			dress = articles.filter(article_type='D').order_by('?').first()
 			return render(
 				request,
 				'outfits/outfit_random.html',
@@ -240,10 +243,13 @@ def outfit_random(request):
 				'outer': outer,
 				'detail': detail,
 				'shoes': shoes,
+				'plans':plans,
+				'plan':plan,
+
 				})
 		else:
-			top = Article.objects.filter(article_type='T', user=request.user).order_by('?').first()
-			bottom = Article.objects.filter(article_type='B', user=request.user).order_by('?').first()
+			top = articles.filter(article_type='T').order_by('?').first()
+			bottom = articles.filter(article_type='B').order_by('?').first()
 			return render(
 				request,
 				'outfits/outfit_random.html',
@@ -253,6 +259,9 @@ def outfit_random(request):
 				'outer': outer,
 				'detail': detail,
 				'shoes': shoes,
+				'plans':plans,
+				'plan':plan,
+
 				})
 
 

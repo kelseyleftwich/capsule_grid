@@ -37,6 +37,7 @@ urlpatterns = [
 	url(r'^outfits/$', views.outfit, name='outfit'),
 	url(r'^outfits/new/$', views.new_outfit, name='new_outfit'),
 	url(r'^outfits/random$', views.outfit_random, name='outfit_random'),
+	url(r'^outfits/random/(?P<plan_id>[0-9]+)/$', views.outfit_random, name='outfit_random_plan'),
 	url(r'^outfits/random/save$', views.outfit_random_save, name='outfit_random_save'),
 	url(r'^outfits/(?P<outfit_id>[0-9]+)/$', views.outfit_detail, name='outfit_detail'),
 	url(r'^outfits/(?P<outfit_id>[0-9]+)/edit/$', views.edit_outfit, name='edit_outfit'),

@@ -4,9 +4,18 @@ Home - {{block.super}}
 {% endblock title %}
 
 {% block content %}
-<p>Random Outfit Generated... 
-	<a href="{% url 'outfit_random' %}"><span class="glyphicon glyphicon glyphicon-repeat" aria-hidden="true"></span></a>
+<p>Random Outfit Generated... {% if plan %}({{plan.name}}){% endif %}
+	<a href="{{request.get_full_path}}"><span class="glyphicon glyphicon glyphicon-repeat" aria-hidden="true"></span></a>
 </p>
+<p>
+			<a href="{% url 'outfit_random' %}">all articles</a><br/>
+			{% if plans %}
+			    {% for plan in plans %}
+			    	<a href="{% url 'outfit_random_plan' plan_id=plan.id %}">{{plan.name}}</a><br/>
+			    {% endfor %}
+			{% endif %}
+</p>
+
 
 {# error message #}
 {% if message %}
