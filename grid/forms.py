@@ -30,7 +30,8 @@ class PlanForm(ModelForm):
 		super(PlanForm, self).__init__(*args, **kwargs)
 		self.fields['articles'] = forms.ModelMultipleChoiceField(
 			queryset = Article.objects.filter(user=user).extra(select={'article_order': CASE_SQL}, order_by=['article_order']),
-			widget=forms.CheckboxSelectMultiple
+			widget=forms.CheckboxSelectMultiple,
+			required=False
 			)
 
 

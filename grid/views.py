@@ -79,6 +79,12 @@ def edit_plan(request, plan_id):
 
 @login_required
 def new_plan(request):
+	profile = Profile.objects.get(user=request.user)
+	if profile.profile_type == 'P':
+		articles = Article.objects.filter(user=request.user).values_list('id','image')
+	else:
+		articles = Article.objects.filter(user=request.user).values_list('id','image_external')
+	
 	if request.method == 'POST':
 		form = PlanForm(data=request.POST, user=request.user)
 		if form.is_valid():
@@ -86,14 +92,11 @@ def new_plan(request):
 			plan.user = request.user
 			plan.save()
 			return redirect('plan')
-	else:
-		profile = Profile.objects.get(user=request.user)
-		if profile.profile_type == 'P':
-			articles = Article.objects.filter(user=request.user).values_list('id','image')
 		else:
-			articles = Article.objects.filter(user=request.user).values_list('id','image_external')
+			return render(request, 'plans/new.html', {'form': form, 'articles': articles,'errors': form.errors,})
+	else:
 		form = PlanForm(user=request.user)
-	return render(request, 'plans/new.html', {'form': form, 'articles': articles,})
+		return render(request, 'plans/new.html', {'form': form, 'articles': articles,})
 
 @login_required
 def outfit(request):
@@ -201,6 +204,11 @@ def outfit_random(request, plan_id=None):
 	detail = articles.filter(article_type='A').order_by('?').first()
 	shoes = articles.filter(article_type='S').order_by('?').first()
 
+	if (articles.filter(article_type='T').count() == 0 or articles.filter(article_type='B').count() == 0) and articles.filter(article_type='D').count() == 0:
+		message = "Not enough articles to generate an outfit."
+	else:
+		message = None
+
 	# if no tops - pick dress
 	if articles.filter(article_type='T').count() == 0:
 		dress = articles.filter(article_type='D').order_by('?').first()
@@ -214,6 +222,7 @@ def outfit_random(request, plan_id=None):
 			'shoes': shoes,
 			'plans': plans,
 			'plan':plan,
+			'message': message,
 			})
 	# if no bottoms - pick dress
 	elif articles.filter(article_type='B').count() == 0:
@@ -228,6 +237,7 @@ def outfit_random(request, plan_id=None):
 			'shoes': shoes,
 			'plans':plans,
 			'plan':plan,
+			'message': message,
 
 			})
 	# randomly pick dress or top + bottom combo
@@ -245,6 +255,7 @@ def outfit_random(request, plan_id=None):
 				'shoes': shoes,
 				'plans':plans,
 				'plan':plan,
+				'message': message,
 
 				})
 		else:
@@ -261,6 +272,7 @@ def outfit_random(request, plan_id=None):
 				'shoes': shoes,
 				'plans':plans,
 				'plan':plan,
+				'message': message,
 
 				})
 

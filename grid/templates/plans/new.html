@@ -7,6 +7,10 @@ Add Plan - {{block.super}}
 	{% endblock header %}
 {% block content %}
 <p>Plan</p>
+{% if errors %}
+    <p>{{errors}}</p>
+
+{% endif %}
 
 	<form role="form" action="" method="post">
 		{% csrf_token %}
