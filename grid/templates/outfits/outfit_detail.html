@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 {% block title %}
 Detail - {{block.super}}
 {% endblock title %}
@@ -16,6 +17,12 @@ Detail - {{block.super}}
 	{% elif article.image_external %}
 		<a href="{% url 'article_detail' article_id=article.id %}">
 			<div class="photo-image" style="background-image: url({{article.image_external}})">
+			</div>
+		</a>
+	{% else %}
+			<a href="{% url 'article_detail' article_id=article.id %}">
+			<div class="photo-image" style="background-image: url({% static 'images/hanger.gif' %})">
+			<p class="no-picture">{{article.name}}</p>
 			</div>
 		</a>
 	{% endif %}

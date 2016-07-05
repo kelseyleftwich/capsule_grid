@@ -11,10 +11,15 @@ Detail - {{block.super}}
     {% if article.user.profile.profile_type == 'P'%}
         {% if article.image %}
             <p><img src="{{article.image.url }}"/></p>
+        {% else %}
+        <p>No image uploaded.</p>
         {% endif %}
     {% else %}
         {% if article.image_external %}
             <p><img src="{{article.image_external}}" width="600px"/></p>    
+            {% else %}
+        <p>No image uploaded.</p>
+            
         {% endif %}
     {% endif %}
     

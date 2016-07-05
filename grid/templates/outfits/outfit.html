@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 {% block title %}
 Home - {{block.super}}
 {% endblock title %}
@@ -32,6 +33,12 @@ Home - {{block.super}}
 						<div class="photo-image" style="background-image: url({{article.image_external}})">
 						</div>
 					</div>
+				{% else %}
+						<div class="photo">
+							<div class="photo-image" style="background-image: url({% static 'images/hanger.gif' %})">
+								<p class="no-picture">{{article.name}}</p>
+							</div>
+						</div>
 				{% endif %}
 			{% endfor %}
 		</div>
