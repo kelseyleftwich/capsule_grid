@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 {% block title %}
 Home - {{block.super}}
 {% endblock title %}
@@ -34,6 +35,14 @@ Home - {{block.super}}
     		
 	{% for article in articles %}
 	{% if not article.image and not article.image_external %}
+		<div class="photo">
+			<!--  -->
+			<a href="{% url 'article_detail' article_id=article.id %}">
+				<div class="photo-image" style="background-image: url({% static 'images/hanger.gif' %})">
+				<p class="no-picture">{{article.name}}</p>
+			</div>
+			</a>
+		</div>	
 	{% else %}
 		<div class="photo">
 			<!--  -->

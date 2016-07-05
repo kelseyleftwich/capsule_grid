@@ -114,3 +114,10 @@ div#container.outfit {
 	opacity: 0.5;
 	box-shadow: 2px 2px 2px #888;
 }
+
+.no-picture {
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	bottom: 0;
+}
