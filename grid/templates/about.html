@@ -14,8 +14,30 @@ Home - {{block.super}}
 			<li>Generate outfits based on your entire closet or a single capsule. Discover new ways to combine your pieces.</li>
 	    </ul>
     </p>
+    <p>&nbsp;</p>
     <p>Why?</p>
     <p>I wanted a tool to help me (1) organize my existing closet, (2) plan purchases, and (3) plan knitting and sewing projects that actually fit into my wardrobe. </p>
+    <p>&nbsp;</p>
     <p>Availability</p>
     <p>I would like to make this tool available to everyone. I am asking for donations to cover hosting costs and some of the time I spend working on development. Additionally, if you are interested in the nuts and bolts, I have put the source code up on <a href="https://github.com/kelseyleftwich/capsule_grid">GitHub</a>.</p>
+    <p>&nbsp;</p>
+    <p>How does it work?</p>
+    <p>
+    	<ol>
+    		<li><a href="{% url 'new_article' %}">Add articles of clothing.</a></li>
+    		<li>Create a <a href="{% url 'plan' %}">capsule</a>.
+				<ul>
+					<li>Enter target article type amounts (or don't).</li>
+					<li>Add articles to your capsule.</li>
+					<li>Make separate capsules for seasons, events, work/play, whatever!</li>
+				</ul>
+    		</li>
+    		<li><a href="{% url 'outfit_random' %}">Generate random outfits</a>. (Hit save if you like what it spits out!)
+				<ul>
+					<li>Generate from all articles or a specific capsule!</li>
+				</ul>
+    		</li>
+    		<li><a href="{% url 'new_outfit' %}">Manually create outfits</a>.</li>
+    	</ol>
+    </p>
 {% endblock content %}
