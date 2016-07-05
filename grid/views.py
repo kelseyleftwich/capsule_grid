@@ -94,6 +94,9 @@ def new_plan(request):
 			plan = form.save(commit=False)
 			plan.user = request.user
 			plan.save()
+			cleaned_data = form.clean()
+			plan.articles = cleaned_data.get('articles')
+			plan.save()
 			return redirect('plan')
 		else:
 			return render(request, 'plans/new.html', {'form': form, 'articles': articles,'errors': form.errors,})
