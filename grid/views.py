@@ -5,6 +5,7 @@ from django.http import Http404
 from django.contrib.auth.decorators import login_required
 import random
 
+
 def about(request):
 	return render(request, 'about.html',)
 
@@ -16,7 +17,7 @@ def index(request, article_type=None, weather_type=None):
 		else:
 			articles = Article.objects.filter(user=request.user).order_by('article_type')
 		if weather_type:
-			articles = articles.filter(weather_type=weather_type.upper())
+			articles = articles.filter(weather_type=weather_type.upper()) | articles.filter(weather_type='B')
 		return render(
 			request,
 			'index.html',
