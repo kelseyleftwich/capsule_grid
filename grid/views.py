@@ -97,7 +97,7 @@ def new_plan(request):
 			cleaned_data = form.clean()
 			plan.articles = cleaned_data.get('articles')
 			plan.save()
-			return redirect('plan')
+			return render(request,'plans/plan_detail.html',{'plan_id': plan.id,'plan': plan,})
 		else:
 			return render(request, 'plans/new.html', {'form': form, 'articles': articles,'errors': form.errors,})
 	else:
