@@ -180,13 +180,13 @@ def edit_outfit(request, outfit_id):
 		raise Http404
 	form_class = OutfitForm
 	if request.method == 'POST':
-		form = form_class(data=request.POST, instance=outfit)
+		form = form_class(data=request.POST, instance=outfit, user=request.user)
 		if form.is_valid():
 			form.save()
 			return redirect('outfit')
 	else:
 		articles = Article.objects.filter(user=request.user).values_list('id','image')
-		form = form_class(instance=outfit)
+		form = form_class(instance=outfit, user=request.user)
 		return render(request, 'outfits/edit_outfit.html', {'outfit': outfit, 'form': form,'articles':articles})
 
 @login_required
