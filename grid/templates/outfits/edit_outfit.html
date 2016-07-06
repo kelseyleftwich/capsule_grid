@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 {% block title %}
 Edit - {{block.super}}
 {% endblock title %}
@@ -18,6 +19,7 @@ Edit - {{block.super}}
 		
 		{% for article in form.articles %}
 			{{article.tag}}
+			<p class="no-picture" id="p_{{article.id_for_label}}" hidden>{{article.choice_label}}</p>
 		{% endfor %}
 		
 		<div style="clear:both"></div>
@@ -34,10 +36,31 @@ Edit - {{block.super}}
 
 
 	$(":checkbox").each(function() {
-		id = $(this).val();
+	id = $(this).val();
+		console.log($(this).attr('id'));
 		$(this).wrap('<div class="photo-image">');
-		$(this).parent().attr('style','background-image:url(\'' + '/media/'+hashtable[id] + '\')');
-		$(this).parent().wrap('<div class="photo">');
+		{% if user.profile.profile_type == 'P' %}
+		if(hashtable[id] == ''){
+				$(this).parent().attr('style',
+					'background-image:url(\'{% static "images/hanger.gif" %}\')');
+				$("#p_" + $(this).attr('id')).removeAttr('hidden').appendTo($(this).parent());
+
+			}
+			else{
+			$(this).parent().attr('style','background-image:url(\'' + '/media/'+hashtable[id] + '\')');
+		}
+		{% else %}
+		if(hashtable[id] == ''){
+				$(this).parent().attr('style',
+					'background-image:url(\'{% static "images/hanger.gif" %}\')');
+				$("#p_" + $(this).attr('id')).removeAttr('hidden').appendTo($(this).parent());
+
+			}
+			else{
+			$(this).parent().attr('style','background-image:url(\'' + hashtable[id] + '\')');
+		}
+		{% endif %}
+		$(this).parent().wrap('<div class="photo outfit_new">');
 		$(this).parent().wrap('<label for="' + $(this).attr('id') + '">');
 
 		if($(this).is(':checked')){
