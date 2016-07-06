@@ -69,7 +69,13 @@ def edit_plan(request, plan_id):
 		if form.is_valid():
 			# save the new data
 			form.save()
-			return redirect('plan')
+			return render(
+				request,
+				'plans/plan_detail.html',{
+					'plan_id': plan.id,
+					'plan': plan,
+				}
+				)
 	# otherwise create the form
 	else:
 		profile = Profile.objects.get(user=request.user)
@@ -219,6 +225,7 @@ def outfit_random(request, plan_id=None):
 	# if no tops - pick dress
 	if articles.filter(article_type='T').count() == 0:
 		dress = articles.filter(article_type='D').order_by('?').first()
+		print("dress")
 		return render(
 			request,
 			'outfits/outfit_random.html',
@@ -234,6 +241,7 @@ def outfit_random(request, plan_id=None):
 	# if no bottoms - pick dress
 	elif articles.filter(article_type='B').count() == 0:
 		dress = articles.filter(article_type='D').order_by('?').first()
+		print("dress 2")
 		return render(
 			request,
 			'outfits/outfit_random.html',
@@ -250,8 +258,9 @@ def outfit_random(request, plan_id=None):
 	# randomly pick dress or top + bottom combo
 	else:
 		flip = random.randint(0, 1)
-		if(flip == 0 and articles.filter(article_type='D').count() != 0):
+		if(flip == 0 and (articles.filter(article_type='D').count() != 0)):
 			dress = articles.filter(article_type='D').order_by('?').first()
+			print("Dress 3")
 			return render(
 				request,
 				'outfits/outfit_random.html',
@@ -268,6 +277,7 @@ def outfit_random(request, plan_id=None):
 		else:
 			top = articles.filter(article_type='T').order_by('?').first()
 			bottom = articles.filter(article_type='B').order_by('?').first()
+			print("top and bottom")
 			return render(
 				request,
 				'outfits/outfit_random.html',

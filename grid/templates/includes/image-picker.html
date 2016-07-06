@@ -1,4 +1,6 @@
+{% load staticfiles %}
 
+<script>
 	var hashtable = {
 	{% for article in articles%}
 		{{article.0}} : '{{article.1}}',
@@ -34,18 +36,19 @@
 		}
 		{% endif %}
 		$(this).parent().wrap('<div class="photo outfit_new">');
-		$(this).parent().wrap('<label for="' + $(this).attr('id') + '">');
+		$(this).parent().parent().wrap('<label for="' + $(this).attr('id') + '">');
 
 		if($(this).is(':checked')){
-			$(this).parent().parent().parent().toggleClass("photo-selected");
+			$(this).parent().parent().toggleClass("photo-selected");
 			/*$("#span_" + $(this).attr('id')).removeClass('hidden');*/
 		}
 	});
 
 		$(':checkbox').click(function() {
-			$(this).parent().parent().parent().toggleClass("photo-selected");
+			$(this).parent().parent().toggleClass("photo-selected");
 			/*$("#span_" + $(this).attr('id')).toggleClass('hidden');*/
 			
 
 		});
 	
+</script>

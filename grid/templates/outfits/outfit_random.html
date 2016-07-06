@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 {% block title %}
 Home - {{block.super}}
 {% endblock title %}
@@ -43,6 +44,10 @@ Home - {{block.super}}
 			{% elif top.image_external %}
 			<div class="photo-image" style="background-image: url({{top.image_external}})">
 			</div>
+			{% else %}
+				<div class="photo-image" style="background-image: url({% static 'images/hanger.gif' %})">
+					<p class="no-picture">{{top.name}}</p>
+				</div>
 			{% endif %}
 		</a>
 	</div>
@@ -60,6 +65,11 @@ Home - {{block.super}}
 			{% elif dress.image_external %}
 				<div class="photo-image" style="background-image: url({{dress.image_external}})">
 				</div>
+			{% else %}
+				<div class="photo-image" style="background-image: url({% static 'images/hanger.gif' %})">
+					<p class="no-picture">{{dress.name}}</p>
+				</div>
+
 			{% endif %}
 		</a>
 	</div>
@@ -77,6 +87,10 @@ Home - {{block.super}}
 			{% elif outer.image_external %}
 <div class="photo-image" style="background-image: url({{outer.image_external}})">
 			</div>
+			{% else %}
+				<div class="photo-image" style="background-image: url({% static 'images/hanger.gif' %})">
+					<p class="no-picture">{{outer.name}}</p>
+				</div>
 			{% endif %}
 		</a>
 	</div>
@@ -93,6 +107,10 @@ Home - {{block.super}}
 			{% elif detail.image_external %}
 <div class="photo-image" style="background-image: url({{detail.image_external}})">
 			</div>
+			{% else %}
+				<div class="photo-image" style="background-image: url({% static 'images/hanger.gif' %})">
+					<p class="no-picture">{{detail.name}}</p>
+				</div>
 			{% endif %}
 
 		</a>
@@ -110,6 +128,10 @@ Home - {{block.super}}
 			{% elif bottom.image_external %}
 			<div class="photo-image" style="background-image: url({{bottom.image_external}})">
 			</div>
+			{% else %}
+				<div class="photo-image" style="background-image: url({% static 'images/hanger.gif' %})">
+					<p class="no-picture">{{bottom.name}}</p>
+				</div>
 
 			{% endif %}
 
@@ -128,6 +150,10 @@ Home - {{block.super}}
 			{% elif shoes.image_external %}
 			<div class="photo-image" style="background-image: url({{shoes.image_external}})">
 			</div>
+			{% else %}
+				<div class="photo-image" style="background-image: url({% static 'images/hanger.gif' %})">
+					<p class="no-picture">{{shoes.name}}</p>
+				</div>
 
 			{% endif %}
 

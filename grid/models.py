@@ -125,7 +125,7 @@ class Profile(models.Model):
 		('P','Paid'),
 		)
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
-	profile_type = models.CharField(max_length=1, choices=PROFILE_TYPES, default='F')
+	profile_type = models.CharField(max_length=1, choices=PROFILE_TYPES, default='P')
 
 	def __str__(self):
 		return self.user.email + " " + self.profile_type
