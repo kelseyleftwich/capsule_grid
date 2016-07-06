@@ -36,6 +36,7 @@ body {
 .photo-image {
 	background-size: cover;
 	background-position: center;
+	background-color: white;
 	position:relative;
 	cursor: pointer;
 	top:18px;
@@ -111,8 +112,9 @@ div#container.outfit {
 }
 
 .photo-selected {
-	opacity: 0.5;
-	box-shadow: 2px 2px 2px #888;
+	/* opacity: 0.5; */
+	/* box-shadow: 2px 2px 2px #888; */
+	background-color: rgba(51,122,183,.5);
 }
 
 .no-picture {
@@ -120,4 +122,8 @@ div#container.outfit {
 	width: 100%;
 	text-align: center;
 	bottom: 0;
+}
+
+.hidden {
+	display: none;
 }

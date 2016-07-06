@@ -19,6 +19,7 @@ Edit - {{block.super}}
 		
 		{% for article in form.articles %}
 			{{article.tag}}
+			<!-- <span class="glyphicon glyphicon-ok selected hidden" aria-hidden="true" id="span_{{article.id_for_label}}"></span> -->
 			<p class="no-picture" id="p_{{article.id_for_label}}" hidden>{{article.choice_label}}</p>
 		{% endfor %}
 		
@@ -39,6 +40,8 @@ Edit - {{block.super}}
 	id = $(this).val();
 		console.log($(this).attr('id'));
 		$(this).wrap('<div class="photo-image">');
+		/*$("#span_" + $(this).attr('id')).appendTo($(this).parent());*/
+
 		{% if user.profile.profile_type == 'P' %}
 		if(hashtable[id] == ''){
 				$(this).parent().attr('style',
@@ -64,13 +67,16 @@ Edit - {{block.super}}
 		$(this).parent().wrap('<label for="' + $(this).attr('id') + '">');
 
 		if($(this).is(':checked')){
-			$(this).parent().toggleClass("photo-selected");
-			console.log("checked");
+			$(this).parent().parent().parent().toggleClass("photo-selected");
+			/*$("#span_" + $(this).attr('id')).removeClass('hidden');*/
 		}
 	});
 
 		$(':checkbox').click(function() {
-			$(this).parent().toggleClass("photo-selected");
+			$(this).parent().parent().parent().toggleClass("photo-selected");
+			/*$("#span_" + $(this).attr('id')).toggleClass('hidden');*/
+			
+
 		});
 	
 
