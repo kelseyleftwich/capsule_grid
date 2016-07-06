@@ -9,9 +9,12 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.text import slugify
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.core.files import File
+import urllib
 
 def get_image_path(instance, filename):
     return os.path.join('img', slugify(instance.name), filename)
+
 
 class Article(models.Model):
 	ARTICLE_TYPES = (
@@ -37,6 +40,7 @@ class Article(models.Model):
 	
 	image = models.ImageField(upload_to=get_image_path, null=True, blank=True)
 	image_external = models.CharField(max_length=255, null=True, blank=True)
+	image_slurp = models.URLField(null=True)
 
 	def get_id(self):
 		return self.id
@@ -55,6 +59,13 @@ class Article(models.Model):
 				temp_name = self.image.name
 				self.image.delete(save=False)
 				self.image.save(temp_name, content=ContentFile(new_image_io.getvalue()), save=False)
+		if self.image_slurp and not self.image:
+			result = urllib.request.urlretrieve(self.image_slurp)
+			self.image.save(
+                os.path.basename(self.image_slurp),
+                File(open(result[0]))
+                )
+
 		super(Article, self).save(*args, **kwargs)
 
 class Plan(models.Model):
