@@ -34,7 +34,21 @@ Home - {{block.super}}
     	<div id="container">
     		
 	{% for article in articles %}
-	{% if not article.image and not article.image_external %}
+	{% if article.image and article.image.url %}
+		<div class="photo">
+			<!--  -->
+			<a href="{% url 'article_detail' article_id=article.id %}">
+			{% if article.user.profile.profile_type == 'P' %}
+
+				<div class="photo-image" style="background-image: url({{article.image.url}})">
+			{% else %}
+				<div class="photo-image" style="background-image: url({{article.image_external}})">
+			{% endif %}
+			</div>
+			</a>
+		</div>
+		
+	{% else %}
 		<div class="photo">
 			<!--  -->
 			<a href="{% url 'article_detail' article_id=article.id %}">
@@ -43,18 +57,6 @@ Home - {{block.super}}
 			</div>
 			</a>
 		</div>	
-	{% else %}
-		<div class="photo">
-			<!--  -->
-			<a href="{% url 'article_detail' article_id=article.id %}">
-			{% if article.user.profile.profile_type == 'P' %}
-				<div class="photo-image" style="background-image: url({{article.image.url}})">
-			{% else %}
-				<div class="photo-image" style="background-image: url({{article.image_external}})">
-			{% endif %}
-			</div>
-			</a>
-		</div>
 	{%endif%}
 	{% endfor %}
     	</div>

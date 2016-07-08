@@ -10,11 +10,12 @@ from django.utils.text import slugify
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core.files import File
-import urllib
+from django.core.files.temp import NamedTemporaryFile
+from urllib import request
+import tempfile
 
 def get_image_path(instance, filename):
     return os.path.join('img', slugify(instance.name), filename)
-
 
 class Article(models.Model):
 	ARTICLE_TYPES = (
@@ -50,6 +51,7 @@ class Article(models.Model):
 
 	def save(self, *args, **kwargs):
 		if self.image:
+			#open image
 			pil_image_obj = Image.open(self.image)
 			img_size = pil_image_obj.size
 			if float(img_size[0]) > 500:
@@ -59,13 +61,24 @@ class Article(models.Model):
 				temp_name = self.image.name
 				self.image.delete(save=False)
 				self.image.save(temp_name, content=ContentFile(new_image_io.getvalue()), save=False)
-		if self.image_slurp and not self.image:
-			result = urllib.request.urlretrieve(self.image_slurp)
-			self.image.save(
-                os.path.basename(self.image_slurp),
-                File(open(result[0]))
-                )
-
+		if self.image_slurp:
+			imgRequest = request.urlopen(self.image_slurp)
+			if imgRequest.status == 200:
+				file_name = self.image_slurp.split('/')[-1]
+				
+				img_temp = NamedTemporaryFile()
+				img_temp.write(imgRequest.read())
+				img_temp.flush()
+				img_file = File(img_temp)
+				pil_image_obj = Image.open(img_temp)
+				img_size = pil_image_obj.size
+				if float(img_size[0]) > 500:
+					new_image = resizeimage.resize_width(pil_image_obj, 500)
+					new_image_io = BytesIO()
+					new_image.save(new_image_io, format='JPEG')
+					temp_name = file_name
+					self.image.delete(save=False)
+					self.image.save(temp_name, content=ContentFile(new_image_io.getvalue()), save=False)
 		super(Article, self).save(*args, **kwargs)
 
 class Plan(models.Model):

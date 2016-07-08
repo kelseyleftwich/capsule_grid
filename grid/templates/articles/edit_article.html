@@ -12,10 +12,28 @@ Edit - {{block.super}}
 <p>Type: {{form.article_type}}</p>
 <p>Weather: {{form.weather_type}}</p>
 {% if user.profile.profile_type == 'P'%}
-	<p>{{form.image}}</p>
+	<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#home">Upload from Computer</a></li>
+    <li><a data-toggle="tab" href="#menu1">Upload from URL</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+      <h3>Upload from Computer</h3>
+      <p>{{form.image}}</p>
+
+    </div>
+    <div id="menu1" class="tab-pane fade">
+      <h3>Upload from URL</h3>
+		<p>Image URL: {{form.image_slurp}}</p>
+    </div>
+
+  </div>
 {% else %}
 	<p>Image URL: {{form.image_external}} <em>Upgrade for image uploads...</em></p>
 {% endif %}
 <button type="submit">Submit</button>
 </form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 {% endblock content %}
