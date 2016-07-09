@@ -11,13 +11,16 @@ Detail - {{block.super}}
     {% if article.user.profile.profile_type == 'P'%}
         {% if article.image %}
             <p><img src="{{article.image.url }}"/></p>
+            <p>Rotate <a href="{% url 'rotate_article' article_id=article.id degrees=270 %}">Clockwise</a> | <a href="{% url 'rotate_article' article_id=article.id degrees=90 %}">Counter-clockwise</a></p>
+            </p>
         {% else %}
         <p>No image uploaded.</p>
         {% endif %}
     {% else %}
         {% if article.image_external %}
-            <p><img src="{{article.image_external}}" width="600px"/></p>    
-            {% else %}
+            <p><img src="{{article.image_external}}" width="600px"/></p>
+            <p>Rotate <a href="{% url 'rotate_article' article_id=article.id degrees=90 %}">Clockwise</a> | <a href="{% url 'rotate_article' article_id=article.id degrees=270 %}">Counter-clockwise</a></p>
+        {% else %}
         <p>No image uploaded.</p>
             
         {% endif %}

@@ -30,6 +30,8 @@ urlpatterns = [
 	url(r'^articles/(?P<article_id>[0-9]+)/$', views.article_detail, name='article_detail'),
 	# object edit
 	url(r'^articles/(?P<article_id>[-\w]+)/edit/$', views.edit_article, name='edit_article'),
+	url(r'^articles/(?P<article_id>[-\w]+)/rotate/$', views.rotate_article, name='rotate_article'),
+	url(r'^articles/(?P<article_id>[-\w]+)/rotate/(?P<degrees>[0-9]+)$', views.rotate_article, name='rotate_article'),
 	# object delete
 	url(r'^articles/(?P<article_id>[-\w]+)/delete/$', views.delete_article, name='delete_article'),
 	# object new

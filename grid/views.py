@@ -4,6 +4,10 @@ from grid.forms import ArticleForm, PlanForm, OutfitForm
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
 import random
+import sys
+
+from PIL import Image
+
 
 
 def about(request):
@@ -332,6 +336,31 @@ def new_article(request):
 	return render(request, 'articles/new.html', {'form': form,})
 
 @login_required
+def rotate_article(request, article_id, degrees=None):
+	if degrees == None:
+		degrees = 90
+	article = Article.objects.get(id=article_id)
+	# check for valid user
+	if article.user != request.user:
+		raise Http404
+
+	#opening image for PIL to access
+	im = Image.open(article.image)
+	im2 = im.convert('RGBA')
+	#rotating it by built in PIL command
+	rotated_image = im2.rotate(int(degrees), resample=Image.BICUBIC, expand=True)
+	# a white image same size as rotated image
+	fff = Image.new('RGBA', rotated_image.size, (255,)*4)
+	# create a composite image using the alpha layer of rot as a mask
+	out = Image.composite(rotated_image, fff, rotated_image)
+
+	#saving rotated image instead of original. Overwriting is on. 
+	out.save(article.image.file.name, overwrite=True)
+	return redirect('article_detail', article_id = article.id)
+
+
+
+@login_required
 def edit_article(request, article_id):
 	# grab the object
 	article = Article.objects.get(id=article_id)
@@ -348,6 +377,9 @@ def edit_article(request, article_id):
 			# save the new data
 			form.save()
 			return redirect('article_detail', article_id = article.id)
+		else:
+			return render(request, 'articles/edit_article.html', {'article': article, 'form': form,'errors': form.errors,})
+
 	# otherwise create the form
 	else:
 		form = form_class(instance=article)

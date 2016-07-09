@@ -5,6 +5,10 @@ Edit - {{block.super}}
 
 {% block content %}
 <p>Edit {{article.name}}</p>
+{% if errors %}
+    {{errors}}
+
+{% endif %}
 <form role="form" action="" method="post" enctype="multipart/form-data">
 {% csrf_token %}
 <p>Name: {{form.name}}</p>

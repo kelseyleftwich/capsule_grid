@@ -17,6 +17,8 @@ import tempfile
 def get_image_path(instance, filename):
     return os.path.join('img', slugify(instance.name), filename)
 
+
+
 class Article(models.Model):
 	ARTICLE_TYPES = (
 		('T', 'Top'),
@@ -41,7 +43,7 @@ class Article(models.Model):
 	
 	image = models.ImageField(upload_to=get_image_path, null=True, blank=True)
 	image_external = models.CharField(max_length=255, null=True, blank=True)
-	image_slurp = models.URLField(null=True)
+	image_slurp = models.URLField(null=True, blank=True)
 
 	def get_id(self):
 		return self.id
@@ -62,10 +64,10 @@ class Article(models.Model):
 				self.image.delete(save=False)
 				self.image.save(temp_name, content=ContentFile(new_image_io.getvalue()), save=False)
 		if self.image_slurp:
+			print("image slurp")
 			imgRequest = request.urlopen(self.image_slurp)
 			if imgRequest.status == 200:
 				file_name = self.image_slurp.split('/')[-1]
-				
 				img_temp = NamedTemporaryFile()
 				img_temp.write(imgRequest.read())
 				img_temp.flush()
@@ -74,11 +76,15 @@ class Article(models.Model):
 				img_size = pil_image_obj.size
 				if float(img_size[0]) > 500:
 					new_image = resizeimage.resize_width(pil_image_obj, 500)
-					new_image_io = BytesIO()
-					new_image.save(new_image_io, format='JPEG')
-					temp_name = file_name
-					self.image.delete(save=False)
-					self.image.save(temp_name, content=ContentFile(new_image_io.getvalue()), save=False)
+				else:
+					new_image = pil_image_obj
+				new_image_io = BytesIO()
+				new_image.save(new_image_io, format='JPEG')
+				temp_name = file_name
+				self.image_slurp = None
+				self.image.delete(save=False)
+				self.image.save(temp_name, content=ContentFile(new_image_io.getvalue()), save=False)
+
 		super(Article, self).save(*args, **kwargs)
 
 class Plan(models.Model):
