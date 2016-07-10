@@ -92,6 +92,7 @@ def edit_plan(request, plan_id):
 				}
 				)
 		else:
+			profile = Profile.objects.get(user=request.user)
 			if profile.profile_type == 'P':
 				articles = Article.objects.filter(user=request.user).values_list('id','image')
 			else:
