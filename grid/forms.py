@@ -42,7 +42,9 @@ class PlanForm(ModelForm):
 			widget=forms.CheckboxSelectMultiple,
 			required=False
 			)
-		self.fields['public'] = forms.BooleanField(widget=forms.Select(choices=((False, 'No'), (True, 'Yes'))))
+		self.fields['public'] = forms.BooleanField(
+			widget=forms.Select(choices=((False, 'No'), (True, 'Yes'))),
+			required=False)
 
 
 class OutfitForm(ModelForm):
