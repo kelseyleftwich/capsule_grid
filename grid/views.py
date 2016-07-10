@@ -91,6 +91,9 @@ def edit_plan(request, plan_id):
 					'plan': plan,
 				}
 				)
+		else:
+			return render(request, 'plans/edit_plan.html', {'plan': plan, 'form': form, 'articles': articles,'errors': form.errors,})
+
 	# otherwise create the form
 	else:
 		profile = Profile.objects.get(user=request.user)
