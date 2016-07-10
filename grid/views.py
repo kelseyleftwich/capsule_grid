@@ -92,6 +92,10 @@ def edit_plan(request, plan_id):
 				}
 				)
 		else:
+			if profile.profile_type == 'P':
+				articles = Article.objects.filter(user=request.user).values_list('id','image')
+			else:
+				articles = Article.objects.filter(user=request.user).values_list('id','image_external')
 			return render(request, 'plans/edit_plan.html', {'plan': plan, 'form': form, 'articles': articles,'errors': form.errors,})
 
 	# otherwise create the form
