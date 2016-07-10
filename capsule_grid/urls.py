@@ -59,6 +59,8 @@ urlpatterns = [
 	        views.browse_by_name, name='browse'),
 	url(r'^browse/name/(?P<initial>[-\w]+)/$',
         views.browse_by_name, name='browse_by_name'),
+	#community
+	url(r'^community/$', views.community, name='community'),
 	#registration
 	url(r'^accounts/', include('registration.backends.simple.urls')),
 	#admin

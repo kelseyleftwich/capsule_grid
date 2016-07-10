@@ -16,6 +16,7 @@
 		<li><a href="{% url 'home' %}">Articles</a></li>
 		<li><a href="{% url 'plan' %}">Capsules</a></li>
 		<li><a href="{% url 'outfit' %}">Outfits</a></li>
+		<li><a href="{% url 'community' %}">Community</a></li>
 		<li><a href="{% url 'about' %}">About / How it Works</a></li>
 		{% if user.is_authenticated %}
 		<li><a href="{% url 'auth_logout' %}">Logout</a></li>

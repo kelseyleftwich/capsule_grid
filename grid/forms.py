@@ -5,7 +5,15 @@ from grid.models import Article, Plan, Outfit
 class ArticleForm(ModelForm):
 	class Meta:
 		model = Article
-		fields = ('name', 'description', 'image', 'article_type', 'weather_type', 'image_external', 'image_slurp')
+		fields = (
+			'name',
+			'description', 
+			'image', 
+			'article_type', 
+			'weather_type', 
+			'image_external', 
+			'image_slurp',
+			)
 		file = forms.ImageField()
 
 
@@ -24,6 +32,7 @@ class PlanForm(ModelForm):
 			'outer_count',
 			'season_type',
 			'articles',
+			'public',
 			)
 
 	def __init__(self, user, *args, **kwargs):
@@ -33,6 +42,7 @@ class PlanForm(ModelForm):
 			widget=forms.CheckboxSelectMultiple,
 			required=False
 			)
+		self.fields['public'] = forms.BooleanField(widget=forms.Select(choices=((False, 'No'), (True, 'Yes'))))
 
 
 class OutfitForm(ModelForm):

@@ -10,12 +10,17 @@ Home - {{block.super}}
 {% if plan %}
 <p>Name: {{plan.name}}</p>
 <p>Season: {{plan.get_season_type_display}}</p>
+<p>Public: {{plan.get_public_display}}</p>
+{% if plan.user == request.user %}
 <p>
 	<a href="{% url 'edit_plan' plan_id=plan.id %}">Edit</a>
 </p>
+    
 <p>
 	<a href="{% url 'delete_plan' plan_id=plan.id %}">Delete</a>
 </p>
+
+{% endif %}
 <table class="table">
 	<tr>
 		<td>Type</td>

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}
+Community - {{block.super}}
+{% endblock title %}
+
+{% block content %}
+<h2>Community</h2>
+{% for plan in plans %}
+	<a href="{% url 'plan_detail' plan_id=plan.id %}" class="">
+		<div id="container" class="outfit_preview outfit_container">
+			<p>
+				{{plan.name}} | {{plan.user}}
+			</p>
+			
+			{% for article in plan.articles.all %}
+				{% if forloop.counter < 6 %}
+				    
+				
+					{% if article.image and article.image.url %}
+						<div class="photo">
+							<!--  -->
+							{% if article.user.profile.profile_type == 'P' %}
+
+								<div class="photo-image" style="background-image: url({{article.image.url}})">
+							{% else %}
+								<div class="photo-image" style="background-image: url({{article.image_external}})">
+							{% endif %}
+							</div>
+						</div>
+						
+					{% else %}
+						<div class="photo">
+							<!--  -->
+								<div class="photo-image" style="background-image: url({% static 'images/hanger.gif' %})">
+								<p class="no-picture">{{article.name}}</p>
+							</div>
+						</div>	
+					{%endif%}
+				{% endif %}
+			{% endfor %}
+		</div>
+{% endfor %}
+{% endblock content%}

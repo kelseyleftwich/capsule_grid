@@ -98,6 +98,7 @@ class Plan(models.Model):
 	name = models.CharField(max_length=255)
 	user = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
 	season_type = models.CharField(max_length=1, choices=SEASON_TYPES, null=True)
+	public = models.BooleanField(default=False, choices=((False, 'No'), (True, 'Yes')))
 
 	top_count = models.IntegerField(blank=False, null=False, default=1, validators=[MinValueValidator(0)])
 	bottom_count = models.IntegerField(blank=False, null=False, default=1, validators=[MinValueValidator(0)])

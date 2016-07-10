@@ -30,6 +30,16 @@ def index(request, article_type=None, weather_type=None):
 	else:
 		return redirect('registration_register')
 
+def community(request):
+	plans = Plan.objects.filter(public=True)
+	return render(
+		request,
+		'community/index.html', {
+			'plans': plans,
+			'loop-times': range(1,5)
+		}
+		)
+
 @login_required
 def plan(request, season_type=None):
 	if Plan.objects.filter(user=request.user).count() > 0:
@@ -50,7 +60,8 @@ def plan(request, season_type=None):
 def plan_detail(request, plan_id):
 	plan = Plan.objects.get(id=plan_id)
 	if plan.user != request.user:
-		raise Http404
+		if plan.public != True:
+			raise Http404
 	return render(
 		request,
 		'plans/plan_detail.html',{

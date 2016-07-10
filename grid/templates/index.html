@@ -31,34 +31,34 @@ Home - {{block.super}}
 </table>
 </p>
     <div id="overlay"></div>
-    	<div id="container">
-    		
-	{% for article in articles %}
-	{% if article.image and article.image.url %}
-		<div class="photo">
-			<!--  -->
-			<a href="{% url 'article_detail' article_id=article.id %}">
-			{% if article.user.profile.profile_type == 'P' %}
-
-				<div class="photo-image" style="background-image: url({{article.image.url}})">
-			{% else %}
-				<div class="photo-image" style="background-image: url({{article.image_external}})">
-			{% endif %}
-			</div>
-			</a>
-		</div>
+	<div id="container">
 		
-	{% else %}
-		<div class="photo">
-			<!--  -->
-			<a href="{% url 'article_detail' article_id=article.id %}">
-				<div class="photo-image" style="background-image: url({% static 'images/hanger.gif' %})">
-				<p class="no-picture">{{article.name}}</p>
-			</div>
-			</a>
-		</div>	
-	{%endif%}
-	{% endfor %}
-    	</div>
+		{% for article in articles %}
+			{% if article.image and article.image.url %}
+				<div class="photo">
+					<!--  -->
+					<a href="{% url 'article_detail' article_id=article.id %}">
+					{% if article.user.profile.profile_type == 'P' %}
+
+						<div class="photo-image" style="background-image: url({{article.image.url}})">
+					{% else %}
+						<div class="photo-image" style="background-image: url({{article.image_external}})">
+					{% endif %}
+					</div>
+					</a>
+				</div>
+				
+			{% else %}
+				<div class="photo">
+					<!--  -->
+					<a href="{% url 'article_detail' article_id=article.id %}">
+						<div class="photo-image" style="background-image: url({% static 'images/hanger.gif' %})">
+						<p class="no-picture">{{article.name}}</p>
+					</div>
+					</a>
+				</div>	
+			{%endif%}
+		{% endfor %}
+	</div>
     
 {% endblock content %}
