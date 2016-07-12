@@ -320,10 +320,28 @@ def outfit_random(request, plan_id=None):
 @login_required
 def article_detail(request, article_id):
 	article = Article.objects.get(id=article_id)
+	plans = Plan.objects.filter(user=request.user)
 	return render(
 		request,
 		'articles/article_detail.html',
-		{'article': article,}
+		{'article': article, 'plans':plans,}
+		)
+
+def add_article(request):
+	article_id = request.POST["article_id"]
+	plan_id = request.POST["plan_id"]
+	article = Article.objects.get(id=article_id)
+	plan = Plan.objects.get(id=plan_id)
+	try:
+		plan.articles.add(article)
+	except:
+		print("Could not add article to plan.")
+	return render(
+		request,
+		'plans/plan_detail.html',{
+			'plan_id': plan_id,
+			'plan': plan,
+		}
 		)
 
 @login_required

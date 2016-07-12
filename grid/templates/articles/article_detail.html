@@ -35,8 +35,23 @@ Detail - {{block.super}}
     {% if user == article.user %}
     <p>
         <a href="{% url 'edit_article' article_id=article.id %}">Edit</a><br/>
-		<a href="{% url 'delete_article' article_id=article.id %}">Delete</a><br/>
+        <a href="{% url 'delete_article' article_id=article.id %}">Delete</a><br/>
     </p>
+    {% if plans %}
+        <p>
+            <form action="{% url 'add_article' %}" method="POST">
+                {% csrf_token %}
+                <input type="text" name="article_id" value="{{article.id}}" hidden>
+                <input type="submit" value="Add to Capsule" class="btn"/>
+                <select name="plan_id">
+                {% for plan in plans %}
+                    <option value="{{plan.id}}">{{plan.name}}</option>
+                {% endfor %}
+                </select>
+            </form>
+        
+        </p>
+    {% endif %}
     {% endif %}
 
 {% endblock content %}
