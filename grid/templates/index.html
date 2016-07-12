@@ -11,6 +11,7 @@ Home - {{block.super}}
 	<tr>
 		<td>Type</td>
 		<td>Weather</td>
+		<td>Source</td>
 	</tr>
 	<tr>
 		<td>
@@ -26,6 +27,10 @@ Home - {{block.super}}
 			<a href="{% url 'weather_type' weather_type='c' %}">Cool</a> -
 			<a href="{% url 'weather_type' weather_type='w' %}">Warm</a> -
 			<a href="{% url 'home' %}">Both</a>
+		</td>
+		<td>
+			<a href="{% url 'source' source='m' %}">To Make</a> -
+			<a href="{% url 'source' source='p' %}">To Purchase</a>
 		</td>
 	</tr>
 </table>

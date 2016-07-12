@@ -26,6 +26,7 @@ urlpatterns = [
 	url(r'^about/$', views.about, name='about'),
 	url(r'^browse/type/(?P<article_type>[-\w]+)/$', views.index, name='article_type'),
 	url(r'^browse/weather/(?P<weather_type>[-\w]+)/$', views.index, name='weather_type'),
+	url(r'^browse/source/(?P<source>[-\w]+)/$', views.index, name='source'),
 	# object detail
 	url(r'^articles/(?P<article_id>[0-9]+)/$', views.article_detail, name='article_detail'),
 	# object edit

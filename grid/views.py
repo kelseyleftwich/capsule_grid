@@ -14,7 +14,7 @@ def about(request):
 	return render(request, 'about.html',)
 
 @login_required
-def index(request, article_type=None, weather_type=None):
+def index(request, article_type=None, weather_type=None, source=None):
 	if request.user.is_authenticated():
 		if article_type:
 			articles = Article.objects.filter(article_type=article_type.upper(), user=request.user)
@@ -22,6 +22,11 @@ def index(request, article_type=None, weather_type=None):
 			articles = Article.objects.filter(user=request.user).order_by('article_type')
 		if weather_type:
 			articles = articles.filter(weather_type=weather_type.upper()) | articles.filter(weather_type='B')
+		if source:
+			if source == 'm':
+				articles = articles.filter(to_make=True)
+			if source == 'p':
+				articles = articles.filter(to_purchase=True)
 		return render(
 			request,
 			'index.html',
