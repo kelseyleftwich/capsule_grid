@@ -13,8 +13,18 @@ class ArticleForm(ModelForm):
 			'weather_type', 
 			'image_external', 
 			'image_slurp',
+			'to_make',
+			'to_purchase',
 			)
 		file = forms.ImageField()
+		def __init__(self, user, *args, **kwargs):
+			super(ArticleForm, self).__init__(*args, **kwargs)
+			self.fields['to_make'] = forms.BooleanField(
+				widget=forms.Select(choices=((False, 'No'), (True, 'Yes'))),
+				required=False)
+			self.fields['to_purchase'] = forms.BooleanField(
+				widget=forms.Select(choices=((False, 'No'), (True, 'Yes'))),
+				required=False)
 
 
 CASE_SQL = '(case when article_type="T" then 1 when article_type="B" then 2 when article_type="O" then 3 when article_type="D" then 4 when article_type="A" then 5 when article_type="S" then 6 end)'

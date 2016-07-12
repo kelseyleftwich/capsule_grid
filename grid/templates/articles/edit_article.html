@@ -13,6 +13,8 @@ Edit - {{block.super}}
 {% csrf_token %}
 <p>Name: {{form.name}}</p>
 <p>Description:<br/>{{form.description}}</p>
+<p>To Make: {{form.to_make}}</p>
+<p>To Purchase: {{form.to_purchase}}</p>
 <p>Type: {{form.article_type}}</p>
 <p>Weather: {{form.weather_type}}</p>
 

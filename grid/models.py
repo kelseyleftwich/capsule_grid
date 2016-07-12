@@ -45,6 +45,10 @@ class Article(models.Model):
 	image_external = models.CharField(max_length=255, null=True, blank=True)
 	image_slurp = models.URLField(null=True, blank=True)
 
+	to_make = models.BooleanField(default=False, choices=((False, 'No'), (True, 'Yes')))
+	to_purchase = models.BooleanField(default=False, choices=((False, 'No'), (True, 'Yes')))
+
+
 	def get_id(self):
 		return self.id
 

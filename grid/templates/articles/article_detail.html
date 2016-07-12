@@ -8,6 +8,14 @@ Detail - {{block.super}}
     <p>Type: {{article.get_article_type_display}}</p>
     <p>Cool or Warm Weather: {{article.get_weather_type_display}}</p>
     <p>Description: {{article.description}}</p>
+    <p>
+    {% if article.to_make %}
+        <span class="label label-primary">To Make</span>
+    {% endif %}
+    {% if article.to_purchase %}
+        <span class="label label-primary">To Purchase</span>
+    {% endif %}
+    </p>
     {% if article.user.profile.profile_type == 'P'%}
         {% if article.image %}
             <p><img src="{{article.image.url }}"/></p>
