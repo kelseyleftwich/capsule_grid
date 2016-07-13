@@ -159,3 +159,32 @@ and (max-device-width : 667px) {
 		display: block
 	}
 }
+
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 568px) { 
+	#container {
+		width: 340px;
+	}
+
+	.photo {
+		width: 160px;
+		height: 160px;
+		margin: 0 auto;
+		margin-top: 10px;
+		margin-right: 10px;
+	}
+
+	.photo-image {
+		width: 120px;
+		height: 120px;
+	}
+
+	.filter_nav {
+		display: none;
+	}
+
+	#mobile-nav {
+		display: block
+	}
+}
