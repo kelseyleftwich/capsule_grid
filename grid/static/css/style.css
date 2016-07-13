@@ -134,6 +134,17 @@ div#container.outfit {
 @media only screen 
 and (min-device-width : 375px) 
 and (max-device-width : 667px) {
+	#main-nav {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	#main-nav li {
+		display: block;
+		padding: 5px;
+	}
+
 	#container {
 		width: 340px;
 	}
@@ -163,21 +174,32 @@ and (max-device-width : 667px) {
 @media only screen 
 and (min-device-width : 320px) 
 and (max-device-width : 568px) { 
+	#main-nav {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	#main-nav li {
+		display: block;
+		padding: 5px;
+	}
+
 	#container {
-		width: 340px;
+		width: 320px;
 	}
 
 	.photo {
-		width: 160px;
-		height: 160px;
+		width: 150px;
+		height: 150px;
 		margin: 0 auto;
 		margin-top: 10px;
 		margin-right: 10px;
 	}
 
 	.photo-image {
-		width: 120px;
-		height: 120px;
+		width: 115px;
+		height: 115px;
 	}
 
 	.filter_nav {
