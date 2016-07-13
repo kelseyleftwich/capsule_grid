@@ -18,7 +18,7 @@ Detail - {{block.super}}
     </p>
     {% if article.user.profile.profile_type == 'P'%}
         {% if article.image %}
-            <p><img src="{{article.image.url }}"/></p>
+            <p><img src="{{article.image.url }}" class="article-detail-image"/></p>
 
             {% if user == article.user %}
 
@@ -30,7 +30,7 @@ Detail - {{block.super}}
         {% endif %}
     {% else %}
         {% if article.image_external %}
-            <p><img src="{{article.image_external}}" width="600px"/></p>
+            <p><img src="{{article.image_external}}" class="article-detail-image"/></p>
             {% if user == article.user %}
                 <p>Rotate <a href="{% url 'rotate_article' article_id=article.id degrees=90 %}">Clockwise</a> | <a href="{% url 'rotate_article' article_id=article.id degrees=270 %}">Counter-clockwise</a></p>
             {% endif %}
