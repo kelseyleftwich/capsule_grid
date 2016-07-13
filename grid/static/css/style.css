@@ -11,8 +11,6 @@ body {
   width:960px;
   position:relative;
   margin:0 auto;
-  /* top:20px; */
-
 }
 
 
@@ -25,6 +23,7 @@ body {
   border:1px solid #999;
   margin:20px;
 }
+
 
 .outfit_preview .photo{
 	height: 150px;
@@ -126,4 +125,37 @@ div#container.outfit {
 
 .hidden {
 	display: none;
+}
+
+#mobile-nav {
+	display: none;
+}
+
+@media only screen 
+and (min-device-width : 375px) 
+and (max-device-width : 667px) {
+	#container {
+		width: 340px;
+	}
+
+	.photo {
+		width: 160px;
+		height: 160px;
+		margin: 0 auto;
+		margin-top: 10px;
+		margin-right: 10px;
+	}
+
+	.photo-image {
+		width: 120px;
+		height: 120px;
+	}
+
+	.filter_nav {
+		display: none;
+	}
+
+	#mobile-nav {
+		display: block
+	}
 }

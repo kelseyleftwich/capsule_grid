@@ -3,67 +3,125 @@
 {% block title %}
 Home - {{block.super}}
 {% endblock title %}
-
+{% block header %}
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+{% endblock header %}
 {% block content %}
-    <!-- <h2>Home</h2> -->
+<!-- <h2>Home</h2> -->
 <p>
-<table class="filter_nav">
-	<tr>
-		<td>Type</td>
-		<td>Weather</td>
-		<td>Source</td>
-	</tr>
-	<tr>
-		<td>
-			<a href="{% url 'article_type' article_type='t' %}">Tops</a> - 
-			<a href="{% url 'article_type' article_type='b' %}">Bottoms</a> - 
-			<a href="{% url 'article_type' article_type='d' %}">Dresses</a> - 
-			<a href="{% url 'article_type' article_type='o' %}">Outerwear</a> - 
-			<a href="{% url 'article_type' article_type='a' %}">Details</a> - 
-			<a href="{% url 'article_type' article_type='s' %}">Shoes</a> - 
-			<a href="{% url 'home' %}">All</a> 
-		</td>
-		<td>
-			<a href="{% url 'weather_type' weather_type='c' %}">Cool</a> -
-			<a href="{% url 'weather_type' weather_type='w' %}">Warm</a> -
-			<a href="{% url 'home' %}">Both</a>
-		</td>
-		<td>
-			<a href="{% url 'source' source='m' %}">To Make</a> -
-			<a href="{% url 'source' source='p' %}">To Purchase</a>
-		</td>
-	</tr>
-</table>
-</p>
-    <div id="overlay"></div>
+	<table class="filter_nav">
+		<tr>
+			<td>Type</td>
+			<td>Weather</td>
+			<td>Source</td>
+		</tr>
+		<tr>
+			<td>
+				<a href="{% url 'article_type' article_type='t' %}">Tops</a> - 
+				<a href="{% url 'article_type' article_type='b' %}">Bottoms</a> - 
+				<a href="{% url 'article_type' article_type='d' %}">Dresses</a> - 
+				<a href="{% url 'article_type' article_type='o' %}">Outerwear</a> - 
+				<a href="{% url 'article_type' article_type='a' %}">Details</a> - 
+				<a href="{% url 'article_type' article_type='s' %}">Shoes</a> - 
+				<a href="{% url 'home' %}">All</a> 
+			</td>
+			<td>
+				<a href="{% url 'weather_type' weather_type='c' %}">Cool</a> -
+				<a href="{% url 'weather_type' weather_type='w' %}">Warm</a> -
+				<a href="{% url 'home' %}">Both</a>
+			</td>
+			<td>
+				<a href="{% url 'source' source='m' %}">To Make</a> -
+				<a href="{% url 'source' source='p' %}">To Purchase</a>
+			</td>
+		</tr>
+	</table>
+
+	<div id="mobile-nav">
+		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+			<div class="panel panel-default">
+				<div class="panel-heading" role="tab" id="headingOne">
+					<h4 class="panel-title">
+						<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+							Type
+						</a>
+					</h4>
+				</div>
+				<div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+					<div class="panel-body">
+						<a href="{% url 'article_type' article_type='t' %}">Tops</a><br/>
+						<a href="{% url 'article_type' article_type='b' %}">Bottoms</a><br/> 
+						<a href="{% url 'article_type' article_type='d' %}">Dresses</a><br/>
+						<a href="{% url 'article_type' article_type='o' %}">Outerwear</a><br/>
+						<a href="{% url 'article_type' article_type='a' %}">Details</a><br/>
+						<a href="{% url 'article_type' article_type='s' %}">Shoes</a><br/>
+						<a href="{% url 'home' %}">All</a> 
+					</div>
+				</div>
+			</div>
+			<div class="panel panel-default">
+			    <div class="panel-heading" role="tab" id="headingTwo">
+			      <h4 class="panel-title">
+			        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+			          Weather
+			        </a>
+			      </h4>
+			    </div>
+			    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+			      <div class="panel-body">
+					<a href="{% url 'weather_type' weather_type='c' %}">Cool</a><br/>
+					<a href="{% url 'weather_type' weather_type='w' %}">Warm</a><br/>
+					<a href="{% url 'home' %}">Both</a>
+			      </div>
+			    </div>
+			  </div>
+			  <div class="panel panel-default">
+			    <div class="panel-heading" role="tab" id="headingThree">
+			      <h4 class="panel-title">
+			        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+			          Source
+			        </a>
+			      </h4>
+			    </div>
+			    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+			      <div class="panel-body">
+					<a href="{% url 'source' source='m' %}">To Make</a><br/>
+					<a href="{% url 'source' source='p' %}">To Purchase</a>
+			      </div>
+			    </div>
+			  </div>
+		</div>
+	</div>
+	<div id="overlay"></div>
 	<div id="container">
 		
 		{% for article in articles %}
-			{% if article.image and article.image.url %}
-				<div class="photo">
-					<!--  -->
-					<a href="{% url 'article_detail' article_id=article.id %}">
-					{% if article.user.profile.profile_type == 'P' %}
+		{% if article.image and article.image.url %}
+		<div class="photo">
+			<!--  -->
+			<a href="{% url 'article_detail' article_id=article.id %}">
+				{% if article.user.profile.profile_type == 'P' %}
 
-						<div class="photo-image" style="background-image: url({{article.image.url}})">
+				<div class="photo-image" style="background-image: url({{article.image.url}})">
 					{% else %}
-						<div class="photo-image" style="background-image: url({{article.image_external}})">
-					{% endif %}
+					<div class="photo-image" style="background-image: url({{article.image_external}})">
+						{% endif %}
 					</div>
-					</a>
-				</div>
-				
+				</a>
+			</div>
+
 			{% else %}
-				<div class="photo">
-					<!--  -->
-					<a href="{% url 'article_detail' article_id=article.id %}">
-						<div class="photo-image" style="background-image: url({% static 'images/hanger.gif' %})">
+			<div class="photo">
+				<!--  -->
+				<a href="{% url 'article_detail' article_id=article.id %}">
+					<div class="photo-image" style="background-image: url({% static 'images/hanger.gif' %})">
 						<p class="no-picture">{{article.name}}</p>
 					</div>
-					</a>
-				</div>	
+				</a>
+			</div>	
 			{%endif%}
-		{% endfor %}
-	</div>
-    
-{% endblock content %}
+			{% endfor %}
+		</div>
+
+		{% endblock content %}
